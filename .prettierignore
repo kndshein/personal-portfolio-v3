@@ -1,0 +1,4 @@
+# Prettier automaticall ignores the same files as .gitignore https://prettier.io/docs/en/ignore in additional to default files
+# Ignore artifacts:
+public
+package-lock.json
