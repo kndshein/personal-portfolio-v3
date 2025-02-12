@@ -1,10 +1,11 @@
 ---
 import { Icon } from 'astro-icon/components';
+import ThemeToggler from './ThemeToggler.tsx';
 
 const footerItems = [
   { icon: 'fa6-brands:linkedin-in', link: 'https://www.linkedin.com/in/kndshein' },
-  { icon: 'fa6-brands:square-instagram', link: 'https://www.instagram.com/durian.puberty' },
-  { icon: 'fa6-brands:medium', link: 'https://medium.com/@kndshein' },
+  { icon: 'fa6-brands:instagram', link: 'https://www.instagram.com/durian.puberty' },
+  { icon: 'fa-brands:medium-m', link: 'https://medium.com/@kndshein' },
 ];
 ---
 
@@ -26,6 +27,7 @@ const footerItems = [
           );
         })
       }
+      <li><ThemeToggler client:only="react" /></li>
     </ul>
   </div>
   <div class="footer-text">
@@ -57,6 +59,10 @@ const footerItems = [
     li {
       list-style-type: none;
       margin-right: 15px;
+    }
+
+    a {
+      display: block;
     }
 
     svg {
