@@ -273,7 +273,7 @@ const navItems = [
   .overlay-content {
     width: 100%;
     text-align: center;
-    font-family: $fontText;
+    font-family: var(--font-text);
     font-weight: 700;
     font-style: normal;
     pointer-events: visible;
@@ -283,7 +283,7 @@ const navItems = [
 
       .active {
         font-style: oblique;
-        @include darkThemeHelper(color, $primaryColor, $dark-primaryColor);
+        color: var(--color-primary);
       }
 
       a {
@@ -292,7 +292,7 @@ const navItems = [
         text-decoration: none;
         font-size: 3rem;
         display: block;
-        @include darkThemeHelper(color, $accent, $dark-accent);
+        color: var(--color-accent);
       }
     }
   }
