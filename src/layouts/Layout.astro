@@ -18,6 +18,11 @@ const { title, disableHeadToToe }: CustomProps = Astro.props.frontmatter || Astr
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <script is:inline>
+      // Immediately apply the saved theme
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
   </head>
   <body>
     {!disableHeadToToe && <Navbar />}
