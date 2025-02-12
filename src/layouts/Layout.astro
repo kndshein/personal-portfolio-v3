@@ -1,6 +1,7 @@
 ---
-import Navbar from '../components/Navbar.astro';
 import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
 // `Props` is taken by Astro
 interface CustomProps {
@@ -22,5 +23,6 @@ const { title }: CustomProps = Astro.props.frontmatter || Astro.props;
     <main>
       <slot />
     </main>
+    <Footer />
   </body>
 </html>

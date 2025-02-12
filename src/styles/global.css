@@ -24,6 +24,7 @@
   --nav-active-link: var(--color-accent-dark);
   --link--hover: var(--color-accent);
   --brand-statement-bg: var(--color-accent-lite);
+  --footer-icon: var(--color-accent);
 }
 
 [data-theme='dark'] {
@@ -31,6 +32,7 @@
   --nav-active-link: var(--dark--color-accent-lite);
   --link--hover: var(--dark--color-accent-lite);
   --brand-statement-bg: var(--dark--color-accent-dark);
+  --footer-icon: var(--dark--color-accent-dark);
 }
 
 * {
