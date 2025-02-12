@@ -6,6 +6,13 @@
   --tablet-size: 768px;
   --desktop-size: 1024px;
 
+  --font-title: bebas-neue-pro, sans-serif;
+  --font-text: roboto, sans-serif;
+  --logo-font-size: clamp(2.75rem, 2.75vw, 3.5rem);
+  --logo-line-height: clamp(2rem, 2.25vw, 2.75rem);
+  --text-font-size: clamp(1.5rem, 2vw, 1.75rem);
+  --text-line-height: clamp(2rem, 3vw, 2.5rem);
+
   --color-primary: black;
   --color-bg: white;
   --color-accent: #aaaaaa;
@@ -14,19 +21,15 @@
   --color-highlight: #e35a5a;
   --theme-toggler: #5881d2;
 
-  --font-title: bebas-neue-pro, sans-serif;
-  --font-text: roboto, sans-serif;
-  --logo-font-size: clamp(2.75rem, 2.75vw, 3.5rem);
-  --logo-line-height: clamp(2rem, 2.25vw, 2.75rem);
-  --text-font-size: clamp(1.5rem, 2vw, 1.75rem);
-  --text-line-height: clamp(2rem, 3vw, 2.5rem);
-
   --overlay-bg: var(--color-accent-lite);
   --nav-active-link: var(--color-accent-dark);
   --link--hover: var(--color-accent);
   --brand-statement-bg: var(--color-accent-lite);
   --footer-icon: var(--color-accent);
   --entry-text: var(--color-accent-dark);
+  --homepage-border: var(--color-primary);
+  --homepage-link-hovers: var(--color-primary);
+  --logo--hover: var(--color-accent);
 }
 
 [data-theme='dark'] {
@@ -45,6 +48,9 @@
   --brand-statement-bg: var(--color-accent-darker);
   --footer-icon: var(--color-accent);
   --entry-text: var(--color-accent-lite);
+  --homepage-border: var(--color-accent-lite);
+  --homepage-link-hovers: var(--color-accent-lite);
+  --logo--hover: var(--color-accent-lite);
 }
 
 * {

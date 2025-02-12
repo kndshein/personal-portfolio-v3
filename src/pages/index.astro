@@ -1,5 +1,354 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import { contentfulClient } from '../lib/contentful';
+
+const num = [...new Array(75).fill(1)],
+  num2 = [...new Array(120).fill(1)];
+
+const cards = [
+  {
+    name: 'I code.',
+    page: 'code',
+    imgTitle: 'MM 0909',
+    hoverText: 'code',
+    hoverTextRepeatNum: num,
+  },
+  {
+    name: 'I design.',
+    page: 'design',
+    imgTitle: 'Code Card',
+    hoverText: 'design',
+    hoverTextRepeatNum: num,
+  },
+  {
+    name: 'I snap.',
+    page: 'snap',
+    imgTitle: 'TeacherSouls - Businesscard Mockup',
+    hoverText: 'snap',
+    hoverTextRepeatNum: num,
+  },
+  {
+    name: 'I am.',
+    page: 'about',
+    imgTitle: 'Profile Picture Alt',
+    hoverText: 'am',
+    hoverTextRepeatNum: num2,
+  },
+];
+
+const response = await contentfulClient.getAssets({
+  'fields.title[in]': cards.map((card) => card.imgTitle), // Comma-separated list of titles
+});
+
+console.log(response);
 ---
 
-<Layout disableHeadToToe>Index Page</Layout>
+<Layout disableHeadToToe>
+  <div class="homepage-container">
+    <div class="links-container">
+      <div class="logo-container">
+        <a href="/" class="logo-content">Kaung Nan Dar Shein</a>
+      </div>
+      <div class="links">
+        {
+          cards.map((card, idx) => {
+            const curr_field = response.items[idx].fields;
+            if (!curr_field.file) throw new Error(`Could not fetch ${card.imgTitle}.`);
+            return (
+              <div class={card.page}>
+                <a href={`/${card.page}`}>
+                  <div class="link-title">{card.name}</div>
+                  <div class="link-hover">
+                    {card.hoverTextRepeatNum.map(() => {
+                      return <span>{card.hoverText}</span>;
+                    })}
+                  </div>
+                  <Image
+                    class="image"
+                    alt={curr_field.description || ''}
+                    src={`https://${curr_field.file.url}`}
+                    inferSize
+                  />
+                </a>
+              </div>
+            );
+          })
+        }
+        <!-- <div class="code">
+          <a href="/code">
+            <div class="link-title">I code.</div>
+            <div class="link-hover">
+              {
+                num.map(() => {
+                  return <span>CODE</span>;
+                })
+              }
+            </div>
+            <GatsbyImage
+              class="image"
+              image={data.allContentfulAsset.edges[3].node.gatsbyImageData}
+              alt={data.allContentfulAsset.edges[3].node.description}
+            />
+          </a>
+        </div>
+        <div class="snap">
+          <a href="/design/">
+            <div class="link-title">I design.</div>
+            <div class="link-hover">
+              {
+                num.map(() => {
+                  return <span>DESIGN</span>;
+                })
+              }
+            </div>
+            <GatsbyImage
+              class="image"
+              image={data.allContentfulAsset.edges[0].node.gatsbyImageData}
+              alt={data.allContentfulAsset.edges[0].node.description}
+            />
+          </a>
+        </div>
+        <div class="design">
+          <Link href="/snap/">
+            <div class="link-title">I snap.</div>
+            <div class="link-hover">
+              {
+                num.map(() => {
+                  return <span>SNAP</span>;
+                })
+              }
+            </div>
+            <GatsbyImage
+              class="image"
+              image={data.allContentfulAsset.edges[1].node.gatsbyImageData}
+              alt={data.allContentfulAsset.edges[1].node.description}
+            />
+          </Link>
+        </div>
+        <div class="about">
+          <Link to="/about/">
+            <div class="link-title">I am.</div>
+            <div class="link-hover">
+              {
+                num2.map(() => {
+                  return <span>AM</span>;
+                })
+              }
+            </div>
+            <GatsbyImage
+              class="image"
+              image={data.allContentfulAsset.edges[2].node.gatsbyImageData}
+              alt={data.allContentfulAsset.edges[2].node.description}
+            />
+          </Link>
+        </div> -->
+      </div>
+    </div>
+    <!-- <div class="social-links">
+      <div>
+        <span>Software Developer</span>
+      </div>
+      <ul>
+        <li>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/kndshein/">
+            <GrLinkedinOption />
+          </a>
+        </li>
+        <li>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.instagram.com/durian.puberty/"
+          >
+            <GrInstagram />
+          </a>
+        </li>
+        <li>
+          <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@kndshein">
+            <GrMedium />
+          </a>
+        </li>
+        <ThemeToggler />
+      </ul>
+    </div> -->
+  </div>
+</Layout>
+
+<style>
+  .homepage-container {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 20px;
+    margin: 0 auto;
+    height: 100vh;
+    width: 100vw;
+    max-width: var(--view-size);
+    transform: translate(-50%, 0);
+  }
+
+  .links-container {
+    position: relative;
+    height: 60%;
+    width: 100%;
+    padding: 35px 25px 25px 25px;
+    border: 2px solid var(--homepage-border);
+    border-top: none;
+  }
+
+  .logo-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      flex: 2 0 0;
+      height: 1px;
+      border-top: 2px solid var(--color-primary);
+    }
+
+    .logo-content {
+      height: 26px;
+      text-transform: uppercase;
+      font-size: var(--logo-font-size);
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-style: normal;
+      line-height: var(--logo-line-height);
+      text-align: center;
+      margin-left: 20px;
+      margin-right: 20px;
+      margin-top: -20px;
+      color: var(--color-primary)
+    
+      &:hover {
+        color: var(--logo--hover);
+      }
+    }
+
+    &::before,
+    &::after {
+      border-top: 2px solid var(--homepage-border);
+    }
+  }
+
+  .links {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .code,
+  .snap,
+  .design,
+  .about {
+    height: 100%;
+    width: 23%;
+    overflow: hidden;
+
+    &:hover {
+      .link-hover {
+        display: block;
+      }
+    }
+
+    a {
+      color: var(--color-primary);
+    }
+  }
+
+  .link-title {
+    font-weight: 500;
+    font-size: 1.75rem;
+    margin-bottom: 5px;
+  }
+
+  .link-hover {
+    display: none;
+    height: 100%;
+    word-wrap: break-word;
+    line-height: clamp(2rem, 2vw, 3rem);
+
+    span {
+      font-weight: 300;
+      font-size: clamp(2rem, 1.75vw, 3.25rem);
+      color: var(--homepage-link-hovers);
+
+      &:nth-child(2n) {
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  .image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  @media only screen and (max-width: $mobileSize) {
+    .homepage-container {
+      justify-content: flex-start;
+      align-items: flex-end;
+      width: 100%;
+      padding: 20px 20px 0 20px;
+    }
+
+    .links-container {
+      height: 90%;
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+    }
+
+    .logo-container {
+      .logo-content {
+        font-size: var(--logo-font-size);
+      }
+    }
+
+    .links {
+      flex-flow: column;
+    }
+
+    .code,
+    .snap,
+    .design,
+    .about {
+      height: 24%;
+      width: 100%;
+    }
+  }
+
+  @media (hover: none), (hover: on-demand) {
+    .logo-container {
+      .logo-content {
+        &:hover {
+          color: var(--color-primary);
+        }
+      }
+    }
+
+    .code,
+    .snap,
+    .design,
+    .about {
+      &:hover {
+        .link-hover {
+          display: none;
+        }
+      }
+    }
+  }
+</style>
