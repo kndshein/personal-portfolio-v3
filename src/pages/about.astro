@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { contentfulClient } from '../lib/contentful';
+import type { EntryFieldTypes } from 'contentful';
+
+interface AboutMeTimeline {
+  contentTypeId: 'aboutMeTimeline';
+  fields: {
+    title: EntryFieldTypes.Text;
+    content: EntryFieldTypes.RichText;
+  };
+}
+
+const entries = await contentfulClient.getEntries<AboutMeTimeline>({
+  content_type: 'aboutMeTimeline',
+});
+---
+
+<Layout>
+  {
+    entries.items.map((item) => (
+      <section>
+        <h2>{item.fields.title}</h2>
+      </section>
+    ))
+  }
+</Layout>
