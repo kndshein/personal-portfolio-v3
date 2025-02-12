@@ -20,18 +20,18 @@ interface AboutMeTimelineEntries {
   };
 }
 
-const about_me_timeline = await contentfulClient.getEntries<AboutMeTimelineEntries>({
+const aboutMeTimeline = await contentfulClient.getEntries<AboutMeTimelineEntries>({
   content_type: 'aboutMeTimeline',
   order: ['fields.order'],
 });
 
-const profile_pic = await contentfulClient.getAsset('3DMqPiWeIMXXsxxIo9g8qJ');
-if (!profile_pic.fields.file) throw new Error('Profile picture was not fetched successfully.');
+const profilePic = await contentfulClient.getAsset('3DMqPiWeIMXXsxxIo9g8qJ');
+if (!profilePic.fields.file) throw new Error('Profile picture was not fetched successfully.');
 ---
 
 <Layout>
   <Image
-    src={`https://${profile_pic.fields.file.url}`}
+    src={`https://${profilePic.fields.file.url}`}
     alt="A handsome fella with slicked back hair"
     inferSize
   />
@@ -70,7 +70,7 @@ if (!profile_pic.fields.file) throw new Error('Profile picture was not fetched s
     </a> that'll tell you more about myself better than I can.
   </div>
   {
-    about_me_timeline.items.map((item) => {
+    aboutMeTimeline.items.map((item) => {
       return (
         <div class="entry" id={item.fields.highlight ? 'highlight' : ''}>
           <div class="date">
