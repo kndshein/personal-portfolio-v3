@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import type { EntryFieldTypes } from 'contentful';
+import OutboundLink from '../components/OutboundLink.astro';
 
 interface AboutMeTimelineEntries {
   contentTypeId: 'aboutMeTimeline';
@@ -79,16 +80,7 @@ if (!profile_pic.fields.file) throw new Error('Profile picture was not fetched s
           <div class="event-container">
             <div class="event">
               <p set:html={documentToHtmlString(item.fields.event)} />
-              {item.fields.link && (
-                <a
-                  class="learn-more"
-                  href={item.fields.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Learn More
-                </a>
-              )}
+              {item.fields.link && <OutboundLink href={item.fields.link}>Learn More</OutboundLink>}
             </div>
             {item.fields.duration && <div class="duration">{item.fields.duration}</div>}
           </div>
