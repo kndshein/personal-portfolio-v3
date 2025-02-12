@@ -6,8 +6,9 @@ import Footer from '../components/Footer.astro';
 // `Props` is taken by Astro
 interface CustomProps {
   title?: string;
+  disableHeadToToe?: true;
 }
-const { title }: CustomProps = Astro.props.frontmatter || Astro.props;
+const { title, disableHeadToToe }: CustomProps = Astro.props.frontmatter || Astro.props;
 ---
 
 <!doctype html>
@@ -19,10 +20,10 @@ const { title }: CustomProps = Astro.props.frontmatter || Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <Navbar />
+    {!disableHeadToToe && <Navbar />}
     <main>
       <slot />
     </main>
-    <Footer />
+    {!disableHeadToToe && <Footer />}
   </body>
 </html>
