@@ -55,6 +55,24 @@ const navItems = [
   </nav>
 </div>
 
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>('.menu-button');
+  const overlayBackground = document.querySelector<HTMLDivElement>('.overlay-background');
+  const overlay = document.querySelector<HTMLDivElement>('#overlay');
+
+  if (menuButton && overlayBackground && overlay) {
+    menuButton.addEventListener('click', () => {
+      menuButton.classList.toggle('open');
+      overlayBackground.classList.toggle('open');
+      overlay.classList.toggle('open');
+    });
+  } else {
+    console.error(
+      'One or more required elements (.menu-button, .overlay-background, #overlay) are missing.'
+    );
+  }
+</script>
+
 <style>
   .navbar-container {
     z-index: 10;
@@ -64,121 +82,217 @@ const navItems = [
     width: 100%;
     height: 75px;
     background-color: var(--color-bg);
+  }
 
-    #logo {
-      text-transform: uppercase;
-      font-family: var(--font-title);
-      font-weight: 600;
-      font-size: var(--logo-font-size);
-      line-height: var(--logo-line-height);
-      color: var(--color-primary)
+  #logo {
+    text-transform: uppercase;
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-size: var(--logo-font-size);
+    line-height: var(--logo-line-height);
+    color: var(--color-primary)
 
       &:hover {
-        color: var(--color-accent);
+      color: var(--color-accent);
 
-        @media (hover: none), (hover: on-demand) {
-          color: var(--color-primary);
+      @media (hover: none), (hover: on-demand) {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: var(--view-size);
+    padding: 20px 20px;
+    margin: 0 auto;
+  }
+
+  #mobile-nav {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33px;
+    height: 33px;
+
+    .menu-button {
+      z-index: 11;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      transition: 0.1s ease-in-out;
+
+      .menu-button-burger {
+        width: 20px;
+        height: 4px;
+        border-radius: 2px;
+        transition: 0.1s ease-in-out;
+        background: var(--color-primary);
+
+        &::before,
+        &::after {
+          content: '';
+          position: absolute;
+          width: 15px;
+          height: 4px;
+          border-radius: 2px;
+          transition: 0.1s ease-in-out;
+          background: var(--color-primary);
+        }
+
+        &::before {
+          transform: translateY(-7px);
+          transition: 0.1s ease-in-out;
+        }
+
+        &::after {
+          transform: translateY(7px);
+          transition: 0.1s ease-in-out;
+        }
+      }
+
+      &.open {
+        .menu-button-burger {
+          transform: translateX(10px);
+          transition: 0.1s ease-in-out;
+          background: transparent;
+
+          &::before {
+            transform: rotate(45deg) translate(-9px, 9px);
+            width: 20px;
+            transition: 0.1s ease-in-out;
+          }
+
+          &::after {
+            transform: rotate(-45deg) translate(-9px, -9px);
+            width: 20px;
+            transition: 0.1s ease-in-out;
+          }
         }
       }
     }
+  }
 
-    .navbar {
+  .overlay-background {
+    z-index: -1;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transition: 0.5s ease-in-out;
+    background-color: var(--overlay-bg);
+
+    &.open {
+      height: 300vmax;
+      width: 300vmax;
+      background-color: var(--overlay-bg);
+    }
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  /* Desktop styling */
+  @media only screen and (min-width: 768px) {
+    #mobile-nav {
+      display: none;
+    }
+
+    .navbar-links {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 100%;
-      max-width: var(--view-size);
-      padding: 20px 20px;
-      margin: 0 auto;
+      justify-content: flex-end;
+      list-style-type: none;
 
-      #mobile-nav {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 33px;
-        height: 33px;
-
-        .menu-button {
-          z-index: 11;
-          position: relative;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 25px;
-          height: 25px;
-          cursor: pointer;
-          transition: 0.1s ease-in-out;
-
-          .menu-button-burger {
-            width: 20px;
-            height: 4px;
-            border-radius: 2px;
-            transition: 0.1s ease-in-out;
-            background: var(--color-primary);
-
-            &::before,
-            &::after {
-              content: '';
-              position: absolute;
-              width: 15px;
-              height: 4px;
-              border-radius: 2px;
-              transition: 0.1s ease-in-out;
-              background: var(--color-primary);
-            }
-
-            &::before {
-              transform: translateY(-7px);
-              transition: 0.1s ease-in-out;
-            }
-
-            &::after {
-              transform: translateY(7px);
-              transition: 0.1s ease-in-out;
-            }
-          }
-
-          &.open {
-            .menu-button-burger {
-              transform: translateX(10px);
-              transition: 0.1s ease-in-out;
-              background: transparent;
-
-              &::before {
-                transform: rotate(45deg) translate(-9px, 9px);
-                width: 20px;
-                transition: 0.1s ease-in-out;
-              }
-
-              &::after {
-                transform: rotate(-45deg) translate(-9px, -9px);
-                width: 20px;
-                transition: 0.1s ease-in-out;
-              }
-            }
-          }
+      li {
+        .active {
+          font-style: oblique;
+          color: var(--color-primary);
         }
 
-        .overlay-background {
-          z-index: -1;
-          position: absolute;
-          width: 0;
-          height: 0;
-          border-radius: 50%;
-          transition: 0.5s ease-in-out;
-          background-color: var(--overlay-bg);
+        a {
+          margin-left: 25px;
+          font-family: var(--font-text);
+          font-weight: 500;
+          font-size: 1.5rem;
+          font-style: normal;
+          color: var(--color-accent);
 
-          &.open {
-            height: 300vmax;
-            width: 300vmax;
-            background-color: var(--overlay-bg);
+          &:hover {
+            color: var(--color-primary);
+          }
+
+          &:active {
+            color: var(--nav-active-link);
+          }
+
+          @media (hover: none), (hover: on-demand) {
+            &:hover {
+              color: var(--color-primary);
+            }
+            &:active {
+              color: var(--color-primary);
+            }
           }
         }
       }
+    }
+  }
 
-      .navbar-links {
-        display: none;
+  /* Mobile styling */
+  #overlay {
+    z-index: 15;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease-in-out;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .overlay-content {
+    width: 100%;
+    text-align: center;
+    font-family: $fontText;
+    font-weight: 700;
+    font-style: normal;
+    pointer-events: visible;
+
+    li {
+      list-style-type: none;
+
+      .active {
+        font-style: oblique;
+        @include darkThemeHelper(color, $primaryColor, $dark-primaryColor);
+      }
+
+      a {
+        position: relative;
+        padding: 8px;
+        text-decoration: none;
+        font-size: 3rem;
+        display: block;
+        @include darkThemeHelper(color, $accent, $dark-accent);
       }
     }
   }
