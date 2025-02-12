@@ -12,7 +12,7 @@
   --color-accent-lite: #eeeeee;
   --color-accent-dark: #555555;
   --color-highlight: #e35a5a;
-  --theme-toggler: #ffc400;
+  --theme-toggler: #5881d2;
 
   --font-title: bebas-neue-pro, sans-serif;
   --font-text: roboto, sans-serif;
@@ -26,14 +26,25 @@
   --link--hover: var(--color-accent);
   --brand-statement-bg: var(--color-accent-lite);
   --footer-icon: var(--color-accent);
+  --entry-text: var(--color-accent-dark);
 }
 
 [data-theme='dark'] {
-  --overlay-bg: var(--dark--color-accent-dark);
-  --nav-active-link: var(--dark--color-accent-lite);
-  --link--hover: var(--dark--color-accent-lite);
-  --brand-statement-bg: var(--dark--color-accent-dark);
-  --footer-icon: var(--dark--color-accent-dark);
+  --color-primary: #d1d1d1;
+  --color-bg: #111111;
+  --color-accent: #666666;
+  --color-accent-lite: #aaaaaa;
+  --color-accent-dark: #3f3f3f;
+  --color-accent-darker: #262626;
+  --color-highlight: #e35a5a;
+  --theme-toggler: #ffc400;
+
+  --overlay-bg: var(--color-accent-dark);
+  --nav-active-link: var(--color-accent-lite);
+  --link--hover: var(--color-accent-lite);
+  --brand-statement-bg: var(--color-accent-darker);
+  --footer-icon: var(--color-accent);
+  --entry-text: var(--color-accent-lite);
 }
 
 * {
