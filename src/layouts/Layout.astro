@@ -1,4 +1,6 @@
 ---
+import Navbar from '../components/Navbar.tsx';
+
 // `Props` is taken by Astro
 interface CustomProps {
   title?: string;
@@ -15,6 +17,7 @@ const { title }: CustomProps = Astro.props.frontmatter || Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <Navbar client:only="react" />
     <slot />
   </body>
 </html>
