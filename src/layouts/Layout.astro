@@ -18,7 +18,9 @@ const { title }: CustomProps = Astro.props.frontmatter || Astro.props;
   </head>
   <body>
     <Navbar />
-    <slot />
+    <main>
+      <slot />
+    </main>
   </body>
 </html>
 

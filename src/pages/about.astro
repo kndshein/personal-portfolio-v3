@@ -1,27 +1,99 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import type { EntryFieldTypes } from 'contentful';
 
-interface AboutMeTimeline {
+interface AboutMeTimelineEntries {
   contentTypeId: 'aboutMeTimeline';
   fields: {
     title: EntryFieldTypes.Text;
-    content: EntryFieldTypes.RichText;
+    order: EntryFieldTypes.Integer;
+    month: EntryFieldTypes.Text;
+    year: EntryFieldTypes.Text;
+    event: EntryFieldTypes.RichText;
+    duration: EntryFieldTypes.Text;
+    link: EntryFieldTypes.Text;
+    highlight: EntryFieldTypes.Boolean;
   };
 }
 
-const entries = await contentfulClient.getEntries<AboutMeTimeline>({
+const about_me_timeline = await contentfulClient.getEntries<AboutMeTimelineEntries>({
   content_type: 'aboutMeTimeline',
+  order: ['fields.order'],
 });
+
+const profile_pic = await contentfulClient.getAsset('3DMqPiWeIMXXsxxIo9g8qJ');
+if (!profile_pic.fields.file) throw new Error('Profile picture was not fetched successfully.');
 ---
 
 <Layout>
+  <Image
+    src={`https://${profile_pic.fields.file.url}`}
+    alt="A handsome fella with slicked back hair"
+    inferSize
+  />
+  <h2>
+    Yello! My name is Kaung,
+    <div>
+      <span>pronounced like King </span>
+      <span>Kong.</span>
+    </div>
+  </h2>
+  <div class="brand-statement">
+    Full-stack developer building software through the lens of science, data, and aesthetics. Driven
+    by creating solutions for a dynamic balance of form and function. Constantly striving for a
+    “no-effort” look with maximum effort.
+  </div>
+  <div class="bio">
+    Or as my <a target="_blank" rel="noopener noreferrer" href="https://dougleinen.com/">friend</a> puts
+    it...
+  </div>
+  <div class="brand-statement second">
+    Full-stack developer suffering from impostor syndrome who builds sites through the lens of
+    over-thinking. Driven by OCD. Occasionally striving for well-thought through look, but also
+    sometimes just wanting to do things that aren't viewed as pretentious in his mind.
+  </div>
+  <div class="bio">
+    My background is in Biochemistry and Studio Art, the former I pursued as a pre-med student. I
+    love tech, gadgets, and a good bagel, egg, and cheese. I am obsessed with self-improvement,
+    minimalism, and mechanical keyboards -- all very costly things I can't afford. In my free time,
+    you can find me putting games in my wishlist but not actually playing them. As I realize that
+    this bio has gotten far too similar to a dating profile, here's <a
+      href="https://medium.com/the-haven/my-hate-hate-relationship-with-vinegar-b627593cf96"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      an article I wrote
+    </a> that'll tell you more about myself better than I can.
+  </div>
   {
-    entries.items.map((item) => (
-      <section>
-        <h2>{item.fields.title}</h2>
-      </section>
-    ))
+    about_me_timeline.items.map((item) => {
+      return (
+        <div class="entry" id={item.fields.highlight ? 'highlight' : ''}>
+          <div class="date">
+            <span class="month">{item.fields.month}</span>
+            <span class="year bold">{item.fields.year}</span>
+          </div>
+          <div class="event-container">
+            <div class="event">
+              <p set:html={documentToHtmlString(item.fields.event)} />
+              {item.fields.link && (
+                <a
+                  class="learn-more"
+                  href={item.fields.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Learn More
+                </a>
+              )}
+            </div>
+            {item.fields.duration && <div class="duration">{item.fields.duration}</div>}
+          </div>
+        </div>
+      );
+    })
   }
 </Layout>
