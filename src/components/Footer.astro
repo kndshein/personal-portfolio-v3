@@ -1,9 +1,9 @@
 ---
-import SocialIcons from './SocialIcons.astro';
+import SocialLinks from './SocialLinks.astro';
 ---
 
 <footer class="footer-container">
-  <SocialIcons />
+  <div class="social-links"><SocialLinks /></div>
   <div class="footer-text">
     All works © 2020 - {new Date().getFullYear()} Kaung Nan Dar Shein. All rights reserved, I suppose.
     Powered by insomnia, unemployed tears, and people with avoidant attachment style.
@@ -27,5 +27,9 @@ import SocialIcons from './SocialIcons.astro';
     text-align: center;
     font-size: 1.2rem;
     line-height: 1.7rem;
+  }
+
+  .social-links {
+    margin-bottom: 15px;
   }
 </style>

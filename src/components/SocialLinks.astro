@@ -8,7 +8,7 @@ const footerItems = [
 ];
 ---
 
-<div class="social-links">
+<section>
   <ul>
     {
       footerItems.map((item) => {
@@ -27,45 +27,43 @@ const footerItems = [
     }
     <li><ThemeToggler client:only="react" /></li>
   </ul>
-</div>
+</section>
 
 <style>
-  .social-links {
-    margin-bottom: 15px;
+  ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 
-    ul {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
+  li {
+    list-style-type: none;
+    margin-right: 15px;
+
+    &:last-child {
+      margin: 0;
     }
+  }
 
-    li {
-      list-style-type: none;
-      margin-right: 15px;
-    }
+  a {
+    display: block;
+  }
 
-    a {
-      display: block;
-    }
+  svg {
+    width: 20px;
+    height: 20px;
+    color: var(--footer-icon);
 
-    svg {
-      width: 20px;
-      height: 20px;
-      color: var(--footer-icon);
-
-      &:hover {
-        color: var(--color-primary);
-      }
+    &:hover {
+      color: var(--color-primary);
     }
   }
 
   @media (hover: none), (hover: on-demand) {
-    .social-links {
-      a {
-        &:hover {
-          svg {
-            color: var(--color-accent);
-          }
+    a {
+      &:hover {
+        svg {
+          color: var(--color-accent);
         }
       }
     }

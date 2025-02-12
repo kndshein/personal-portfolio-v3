@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
+import SocialLinks from '../components/SocialLinks.astro';
 
 const num = [...new Array(75).fill(1)],
   num2 = [...new Array(120).fill(1)];
@@ -10,21 +11,21 @@ const cards = [
   {
     name: 'I code.',
     page: 'code',
-    imgTitle: 'MM 0909',
+    imgTitle: 'Code Card',
     hoverText: 'code',
     hoverTextRepeatNum: num,
   },
   {
     name: 'I design.',
     page: 'design',
-    imgTitle: 'Code Card',
+    imgTitle: 'TeacherSouls - Businesscard Mockup',
     hoverText: 'design',
     hoverTextRepeatNum: num,
   },
   {
     name: 'I snap.',
     page: 'snap',
-    imgTitle: 'TeacherSouls - Businesscard Mockup',
+    imgTitle: 'MM 0909',
     hoverText: 'snap',
     hoverTextRepeatNum: num,
   },
@@ -74,103 +75,14 @@ const response = await contentfulClient.getAssets({
             );
           })
         }
-        <!-- <div class="code">
-          <a href="/code">
-            <div class="link-title">I code.</div>
-            <div class="link-hover">
-              {
-                num.map(() => {
-                  return <span>CODE</span>;
-                })
-              }
-            </div>
-            <GatsbyImage
-              class="image"
-              image={data.allContentfulAsset.edges[3].node.gatsbyImageData}
-              alt={data.allContentfulAsset.edges[3].node.description}
-            />
-          </a>
-        </div>
-        <div class="snap">
-          <a href="/design/">
-            <div class="link-title">I design.</div>
-            <div class="link-hover">
-              {
-                num.map(() => {
-                  return <span>DESIGN</span>;
-                })
-              }
-            </div>
-            <GatsbyImage
-              class="image"
-              image={data.allContentfulAsset.edges[0].node.gatsbyImageData}
-              alt={data.allContentfulAsset.edges[0].node.description}
-            />
-          </a>
-        </div>
-        <div class="design">
-          <Link href="/snap/">
-            <div class="link-title">I snap.</div>
-            <div class="link-hover">
-              {
-                num.map(() => {
-                  return <span>SNAP</span>;
-                })
-              }
-            </div>
-            <GatsbyImage
-              class="image"
-              image={data.allContentfulAsset.edges[1].node.gatsbyImageData}
-              alt={data.allContentfulAsset.edges[1].node.description}
-            />
-          </Link>
-        </div>
-        <div class="about">
-          <Link to="/about/">
-            <div class="link-title">I am.</div>
-            <div class="link-hover">
-              {
-                num2.map(() => {
-                  return <span>AM</span>;
-                })
-              }
-            </div>
-            <GatsbyImage
-              class="image"
-              image={data.allContentfulAsset.edges[2].node.gatsbyImageData}
-              alt={data.allContentfulAsset.edges[2].node.description}
-            />
-          </Link>
-        </div> -->
       </div>
     </div>
-    <!-- <div class="social-links">
-      <div>
-        <span>Software Developer</span>
+    <div class="bottom-container">
+      <p>Software Developer</p>
+      <div class="social-links">
+        <SocialLinks />
       </div>
-      <ul>
-        <li>
-          <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/kndshein/">
-            <GrLinkedinOption />
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.instagram.com/durian.puberty/"
-          >
-            <GrInstagram />
-          </a>
-        </li>
-        <li>
-          <a target="_blank" rel="noopener noreferrer" href="https://medium.com/@kndshein">
-            <GrMedium />
-          </a>
-        </li>
-        <ThemeToggler />
-      </ul>
-    </div> -->
+    </div>
   </div>
 </Layout>
 
@@ -294,6 +206,23 @@ const response = await contentfulClient.getAssets({
     height: 100%;
     width: 100%;
     object-fit: cover;
+  }
+
+  .bottom-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+
+    p {
+      font-size: 1.5rem;
+      color: var(--color-primary);
+    }
+
+    .social-links {
+      margin-top: 5px;
+    }
   }
 
   @media only screen and (max-width: $mobileSize) {
