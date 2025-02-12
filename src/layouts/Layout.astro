@@ -1,5 +1,5 @@
 ---
-import Navbar from '../components/Navbar.tsx';
+import Navbar from '../components/Navbar.astro';
 
 // `Props` is taken by Astro
 interface CustomProps {
@@ -17,7 +17,7 @@ const { title }: CustomProps = Astro.props.frontmatter || Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <Navbar client:only="react" />
+    <Navbar />
     <slot />
   </body>
 </html>

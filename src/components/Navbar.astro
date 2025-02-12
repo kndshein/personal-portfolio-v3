@@ -1,0 +1,56 @@
+---
+const navItems = [
+  {
+    name: 'I code.',
+    link: '/code',
+  },
+  {
+    name: 'I design.',
+    link: '/design',
+  },
+  {
+    name: 'I snap.',
+    link: '/snap',
+  },
+  {
+    name: 'I am.',
+    link: '/about',
+  },
+];
+---
+
+<div id="overlay">
+  <div class="overlay-content">
+    {
+      navItems.map((item) => {
+        return (
+          <li>
+            <a href={item.link}>{item.name}</a>
+          </li>
+        );
+      })
+    }
+  </div>
+</div>
+<div class="navbar-container">
+  <nav class="navbar">
+    <a href="/" id="logo"> Kaung Nan Dar Shein </a>
+    <div id="mobile-nav">
+      <div class="menu-button" role="button" tabindex={0}>
+        <div class="menu-button-burger"></div>
+      </div>
+      <div class="overlay-background"></div>
+    </div>
+    <ul class="navbar-links">
+      {
+        navItems.map((item) => {
+          return (
+            <li>
+              <a href={item.link}>{item.name}</a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </nav>
+</div>
