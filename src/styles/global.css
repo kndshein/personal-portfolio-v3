@@ -11,21 +11,26 @@
   --color-accent: #aaaaaa;
   --color-accent-lite: #eeeeee;
   --color-accent-dark: #555555;
+  --color-highlight: #e35a5a;
 
   --font-title: bebas-neue-pro, sans-serif;
   --font-text: roboto, sans-serif;
   --logo-font-size: clamp(2.75rem, 2.75vw, 3.5rem);
   --logo-line-height: clamp(2rem, 2.25vw, 2.75rem);
+  --text-font-size: clamp(1.5rem, 2vw, 1.75rem);
+  --text-line-height: clamp(2rem, 3vw, 2.5rem);
 
   --overlay-bg: var(--color-accent-lite);
   --nav-active-link: var(--color-accent-dark);
   --link--hover: var(--color-accent);
+  --brand-statement-bg: var(--color-accent-lite);
 }
 
 [data-theme='dark'] {
   --overlay-bg: var(--dark--color-accent-dark);
   --nav-active-link: var(--dark--color-accent-lite);
   --link--hover: var(--dark--color-accent-lite);
+  --brand-statement-bg: var(--dark--color-accent-dark);
 }
 
 * {
@@ -80,10 +85,12 @@ a {
   }
 }
 
+b,
 .bold {
   font-weight: 500;
 }
 
+i,
 .italic {
   font-style: italic;
 }

@@ -1,9 +1,0 @@
----
-export interface Props {
-  href: string;
-}
-import { Icon } from 'astro-icon/components';
-const { href, ...rest } = Astro.props;
----
-
-<a href={href} rel="noopener noreferrer" {...rest}><slot /><Icon name="mdi:external-link" /></a>

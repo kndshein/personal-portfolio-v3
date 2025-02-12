@@ -2,9 +2,10 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
+import { MARKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import type { EntryFieldTypes } from 'contentful';
-import OutboundLink from '../components/OutboundLink.astro';
+import { Icon } from 'astro-icon/components';
 
 interface AboutMeTimelineEntries {
   contentTypeId: 'aboutMeTimeline';
@@ -27,65 +28,271 @@ const aboutMeTimeline = await contentfulClient.getEntries<AboutMeTimelineEntries
 
 const profilePic = await contentfulClient.getAsset('3DMqPiWeIMXXsxxIo9g8qJ');
 if (!profilePic.fields.file) throw new Error('Profile picture was not fetched successfully.');
+
+const richTextOptions = {
+  renderMark: {
+    [MARKS.BOLD]: (text: string) => `<span class='bold'>${text}</span>`,
+    [MARKS.ITALIC]: (text: string) => `<span class='italic'>${text}</span>`,
+  },
+};
 ---
 
 <Layout>
-  <Image
-    src={`https://${profilePic.fields.file.url}`}
-    alt="A handsome fella with slicked back hair"
-    inferSize
-  />
-  <h2>
-    Yello! My name is Kaung,
-    <div>
-      <span>pronounced like King </span>
-      <span>Kong.</span>
-    </div>
-  </h2>
-  <div class="brand-statement">
-    Full-stack developer building software through the lens of science, data, and aesthetics. Driven
-    by creating solutions for a dynamic balance of form and function. Constantly striving for a
-    “no-effort” look with maximum effort.
-  </div>
-  <div class="bio">
-    Or as my <a target="_blank" rel="noopener noreferrer" href="https://dougleinen.com/">friend</a> puts
-    it...
-  </div>
-  <div class="brand-statement second">
-    Full-stack developer suffering from impostor syndrome who builds sites through the lens of
-    over-thinking. Driven by OCD. Occasionally striving for well-thought through look, but also
-    sometimes just wanting to do things that aren't viewed as pretentious in his mind.
-  </div>
-  <div class="bio">
-    My background is in Biochemistry and Studio Art, the former I pursued as a pre-med student. I
-    love tech, gadgets, and a good bagel, egg, and cheese. I am obsessed with self-improvement,
-    minimalism, and mechanical keyboards -- all very costly things I can't afford. In my free time,
-    you can find me putting games in my wishlist but not actually playing them. As I realize that
-    this bio has gotten far too similar to a dating profile, here's <a
-      href="https://medium.com/the-haven/my-hate-hate-relationship-with-vinegar-b627593cf96"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      an article I wrote
-    </a> that'll tell you more about myself better than I can.
-  </div>
-  {
-    aboutMeTimeline.items.map((item) => {
-      return (
-        <div class="entry" id={item.fields.highlight ? 'highlight' : ''}>
-          <div class="date">
-            <span class="month">{item.fields.month}</span>
-            <span class="year bold">{item.fields.year}</span>
-          </div>
-          <div class="event-container">
-            <div class="event">
-              <p set:html={documentToHtmlString(item.fields.event)} />
-              {item.fields.link && <OutboundLink href={item.fields.link}>Learn More</OutboundLink>}
-            </div>
-            {item.fields.duration && <div class="duration">{item.fields.duration}</div>}
-          </div>
+  <section class="about-page">
+    <section class="about-text">
+      <Image
+        src={`https://${profilePic.fields.file.url}`}
+        alt="A handsome fella with slicked back hair"
+        class="profile-pic"
+        inferSize
+      />
+      <h2>
+        Yello! My name is Kaung,
+        <div>
+          <span>pronounced like King </span>
+          <span>Kong.</span>
         </div>
-      );
-    })
-  }
+      </h2>
+      <div class="brand-statement">
+        Full-stack developer building software through the lens of science, data, and aesthetics.
+        Driven by creating solutions for a dynamic balance of form and function. Constantly striving
+        for a “no-effort” look with maximum effort.
+      </div>
+      <div class="bio">
+        Or as my <a target="_blank" rel="noopener noreferrer" href="https://dougleinen.com/"
+          >friend</a
+        > puts it...
+      </div>
+      <div class="brand-statement second">
+        Full-stack developer suffering from impostor syndrome who builds sites through the lens of
+        over-thinking. Driven by OCD. Occasionally striving for well-thought through look, but also
+        sometimes just wanting to do things that aren't viewed as pretentious in his mind.
+      </div>
+      <div class="bio">
+        My background is in Biochemistry and Studio Art, the former I pursued as a pre-med student.
+        I love tech, gadgets, and a good bagel, egg, and cheese. I am obsessed with
+        self-improvement, minimalism, and mechanical keyboards -- all very costly things I can't
+        afford. In my free time, you can find me putting games in my wishlist but not actually
+        playing them. As I realize that this bio has gotten far too similar to a dating profile,
+        here's <a
+          href="https://medium.com/the-haven/my-hate-hate-relationship-with-vinegar-b627593cf96"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          an article I wrote
+        </a> that'll tell you more about myself better than I can.
+      </div>
+    </section>
+    <section class="entries-container">
+      {
+        aboutMeTimeline.items.map((entry) => {
+          return (
+            <div class={`entry ${entry.fields.highlight ? 'highlight' : ''}`}>
+              <div class="date">
+                <span class="month">{entry.fields.month}</span>
+                <span class="year bold">{entry.fields.year}</span>
+              </div>
+              <div class="event-container">
+                <div class="event">
+                  <div
+                    class={`${entry.fields.link ? 'margin' : ''}`}
+                    set:html={documentToHtmlString(entry.fields.event, richTextOptions)}
+                  />
+                  {entry.fields.link && (
+                    <a
+                      class="learn-more"
+                      href={entry.fields.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Learn More
+                      <Icon name="mdi:external-link" />
+                    </a>
+                  )}
+                </div>
+                {entry.fields.duration && <div class="duration">{entry.fields.duration}</div>}
+              </div>
+            </div>
+          );
+        })
+      }
+    </section>
+  </section>
 </Layout>
+
+<style>
+  .about-page {
+    width: 100%;
+    margin-top: clamp(20px, 3vw, 75px);
+  }
+
+  .profile-pic {
+    display: block;
+    width: calc(min(15vw, 250px));
+    min-width: 200px;
+    height: calc(min(15vw, 250px));
+    min-height: 200px;
+    margin: 0 auto;
+    margin-bottom: clamp(50px, 3vw, 75px);
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+  }
+
+  .about-text {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: clamp(50px, 5vw, 80px);
+
+    h2 {
+      text-align: left;
+      font-size: clamp(3.25rem, 4vw, 7rem);
+      line-height: clamp(3.5rem, 4vw, 7rem);
+      margin-top: 25px;
+      color: var(--color-primary);
+
+      span {
+        font-size: clamp(3.25rem, 4vw, 7rem);
+        line-height: clamp(3.5rem, 4vw, 7rem);
+        color: var(--color-accent);
+
+        &:nth-of-type(2) {
+          font-style: oblique;
+        }
+      }
+    }
+  }
+
+  .brand-statement {
+    font-size: clamp(1.75rem, 2vw, 2.25rem);
+    line-height: clamp(2.5rem, 3vw, 3rem);
+    padding: 20px;
+    margin: 20px 0 20px 0;
+    background-color: var(--brand-statement-bg);
+
+    &.second {
+      margin-bottom: 35px;
+      background: none;
+      color: var(--color-accent);
+      border: 2px solid var(--color-accent);
+    }
+  }
+
+  .bio {
+    font-size: var(--text-font-size);
+    line-height: var(--text-line-height);
+
+    a {
+      font-size: var(--text-font-size);
+      text-decoration: underline;
+    }
+  }
+
+  .entries-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 0;
+  }
+
+  .entry {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 25px;
+    font-weight: 300;
+
+    .date {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 20px;
+      margin-bottom: 5px;
+      width: 10%;
+    }
+
+    .year {
+      font-size: 1.5rem;
+    }
+
+    .month {
+      margin-right: 5px;
+      text-transform: uppercase;
+      font-size: 1.5rem;
+    }
+  }
+
+  .event-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 7px 15px;
+    border: 1px solid var(--color-primary);
+
+    p,
+    span {
+      font-size: 1.5rem;
+    }
+  }
+
+  .event {
+    display: flex;
+    flex-flow: row wrap;
+
+    .margin {
+      margin-right: 5px;
+    }
+
+    .learn-more {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+
+      svg {
+        height: 20px;
+        width: 20px;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .duration {
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .highlight {
+    color: var(--color-highlight);
+    .event-container {
+      border: 1px solid var(--color-highlight);
+    }
+  }
+
+  @media only screen and (min-width: 500px) {
+    .about-text {
+      h2 {
+        text-align: center;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .entry {
+      flex-flow: column;
+      width: 100%;
+
+      .date {
+        justify-content: flex-start;
+        margin-right: 0px;
+        width: 100%;
+      }
+
+      .event-container {
+        width: 100%;
+      }
+    }
+  }
+</style>
