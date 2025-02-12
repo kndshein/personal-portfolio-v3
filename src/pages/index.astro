@@ -40,8 +40,6 @@ const cards = [
 const response = await contentfulClient.getAssets({
   'fields.title[in]': cards.map((card) => card.imgTitle), // Comma-separated list of titles
 });
-
-console.log(response);
 ---
 
 <Layout disableHeadToToe>
@@ -52,9 +50,10 @@ console.log(response);
       </div>
       <div class="links">
         {
-          cards.map((card, idx) => {
-            const curr_field = response.items[idx].fields;
-            if (!curr_field.file) throw new Error(`Could not fetch ${card.imgTitle}.`);
+          cards.map((card) => {
+            const curr_item = response.items.find((item) => item.fields.title == card.imgTitle);
+            if (!curr_item || !curr_item.fields.file)
+              throw new Error(`Could not fetch ${card.imgTitle}.`);
             return (
               <div class={card.page}>
                 <a href={`/${card.page}`}>
@@ -66,8 +65,8 @@ console.log(response);
                   </div>
                   <Image
                     class="image"
-                    alt={curr_field.description || ''}
-                    src={`https://${curr_field.file.url}`}
+                    alt={curr_item.fields.description || ''}
+                    src={`https://${curr_item.fields.file.url}`}
                     inferSize
                   />
                 </a>
