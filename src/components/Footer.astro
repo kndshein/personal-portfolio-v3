@@ -1,35 +1,9 @@
 ---
-import { Icon } from 'astro-icon/components';
-import ThemeToggler from './ThemeToggler.tsx';
-
-const footerItems = [
-  { icon: 'fa6-brands:linkedin-in', link: 'https://www.linkedin.com/in/kndshein' },
-  { icon: 'fa6-brands:instagram', link: 'https://www.instagram.com/durian.puberty' },
-  { icon: 'fa-brands:medium-m', link: 'https://medium.com/@kndshein' },
-];
+import SocialIcons from './SocialIcons.astro';
 ---
 
 <footer class="footer-container">
-  <div class="social-links">
-    <ul>
-      {
-        footerItems.map((item) => {
-          return (
-            <li>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://www.linkedin.com/in/kndshein/"
-              >
-                <Icon name={item.icon} />
-              </a>
-            </li>
-          );
-        })
-      }
-      <li><ThemeToggler client:only="react" /></li>
-    </ul>
-  </div>
+  <SocialIcons />
   <div class="footer-text">
     All works © 2020 - {new Date().getFullYear()} Kaung Nan Dar Shein. All rights reserved, I suppose.
     Powered by insomnia, unemployed tears, and people with avoidant attachment style.
@@ -48,51 +22,10 @@ const footerItems = [
     padding: 0 20px 20px;
   }
 
-  .social-links {
-    margin-bottom: 15px;
-
-    ul {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
-
-    li {
-      list-style-type: none;
-      margin-right: 15px;
-    }
-
-    a {
-      display: block;
-    }
-
-    svg {
-      width: 20px;
-      height: 20px;
-      color: var(--footer-icon);
-
-      &:hover {
-        color: var(--color-primary);
-      }
-    }
-  }
-
   .footer-text {
     color: var(--color-accent);
     text-align: center;
     font-size: 1.2rem;
     line-height: 1.7rem;
-  }
-
-  @media (hover: none), (hover: on-demand) {
-    .social-links {
-      a {
-        &:hover {
-          svg {
-            color: var(--color-accent);
-          }
-        }
-      }
-    }
   }
 </style>

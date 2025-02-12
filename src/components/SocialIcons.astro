@@ -1,0 +1,73 @@
+---
+import { Icon } from 'astro-icon/components';
+import ThemeToggler from './ThemeToggler.tsx';
+const footerItems = [
+  { icon: 'fa6-brands:linkedin-in', link: 'https://www.linkedin.com/in/kndshein' },
+  { icon: 'fa6-brands:instagram', link: 'https://www.instagram.com/durian.puberty' },
+  { icon: 'fa-brands:medium-m', link: 'https://medium.com/@kndshein' },
+];
+---
+
+<div class="social-links">
+  <ul>
+    {
+      footerItems.map((item) => {
+        return (
+          <li>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.linkedin.com/in/kndshein/"
+            >
+              <Icon name={item.icon} />
+            </a>
+          </li>
+        );
+      })
+    }
+    <li><ThemeToggler client:only="react" /></li>
+  </ul>
+</div>
+
+<style>
+  .social-links {
+    margin-bottom: 15px;
+
+    ul {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    li {
+      list-style-type: none;
+      margin-right: 15px;
+    }
+
+    a {
+      display: block;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      color: var(--footer-icon);
+
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+  }
+
+  @media (hover: none), (hover: on-demand) {
+    .social-links {
+      a {
+        &:hover {
+          svg {
+            color: var(--color-accent);
+          }
+        }
+      }
+    }
+  }
+</style>
