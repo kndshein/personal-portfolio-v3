@@ -12,8 +12,11 @@
   --logo-line-height: clamp(2rem, 2.25vw, 2.75rem);
   --text-font-size: clamp(1.5rem, 2vw, 1.75rem);
   --text-line-height: clamp(2rem, 3vw, 2.5rem);
+  --gallery-title-font-size: clamp(3rem, 3vw, 5rem);
+  --gallery-card-font-size: clamp(2rem, 3vw, 3.5rem);
 
   --color-primary: black;
+  --color-secondary: white;
   --color-bg: white;
   --color-accent: #aaaaaa;
   --color-accent-lite: #eeeeee;
@@ -30,10 +33,13 @@
   --homepage-border: var(--color-primary);
   --homepage-link-hovers: var(--color-primary);
   --logo--hover: var(--color-accent);
+  --gallery-card-color: var(--color-secondary);
+  --gallery-card-bg: var(--color-primary);
 }
 
 [data-theme='dark'] {
   --color-primary: #d1d1d1;
+  --color-secondary: #111111;
   --color-bg: #111111;
   --color-accent: #666666;
   --color-accent-lite: #aaaaaa;
@@ -51,6 +57,8 @@
   --homepage-border: var(--color-accent-lite);
   --homepage-link-hovers: var(--color-accent-lite);
   --logo--hover: var(--color-accent-lite);
+  --gallery-card-color: white;
+  --gallery-card-bg: black;
 }
 
 * {

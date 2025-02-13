@@ -6,40 +6,197 @@ import { SnapGalleryType } from '../types/contentful';
 
 const snapGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries<SnapGalleryType>({
   content_type: 'snapGallery',
+  order: ['fields.order'],
 });
 ---
 
 <Layout>
-  <div class="snap-page">
-    <div class="page-title">Snap</div>
-    <div class="cards-container">
-      {
-        snapGalleries.items.map((gallery) => {
-          if (!gallery.fields.images) throw new Error('Images info not found in Snap Gallery');
-          const coverImage = gallery.fields.images.find(
-            (img) => img?.fields.title === gallery.fields.coverImage
-          );
-          if (!coverImage || !coverImage.fields.file) throw new Error('Cover Image not found.');
-          return (
-            <a href={`${gallery.fields.slug}`} class="card-link">
-              <div class="card-container">
-                <div class="cover-image-wrap">
-                  <div class="cover-image">
-                    <div class="image-container">
-                      <Image
-                        src={`https://${coverImage.fields.file.url}`}
-                        alt={coverImage.fields.description || ''}
-                        inferSize
-                      />
-                    </div>
+  <div class="page-title">Snap</div>
+  <div class="cards-container">
+    {
+      snapGalleries.items.map((gallery) => {
+        if (!gallery.fields.images) throw new Error('Images info not found in Snap Gallery');
+        const coverImage = gallery.fields.images.find(
+          (img) => img?.fields.title === gallery.fields.coverImage
+        );
+        if (!coverImage || !coverImage.fields.file) throw new Error('Cover Image not found.');
+        return (
+          <a href={`/snap/${gallery.fields.slug}`} class="card-link">
+            <div class="card-container">
+              <div class="cover-image-wrap">
+                <div class="cover-image">
+                  <div class="image-container">
+                    <Image
+                      src={`https://${coverImage.fields.file.url}`}
+                      alt={coverImage.fields.description || ''}
+                      inferSize
+                    />
                   </div>
                 </div>
-                <div class="card-title">{gallery.fields.galleryTitle}</div>
               </div>
-            </a>
-          );
-        })
+              <div class="card-title">{gallery.fields.galleryTitle}</div>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+</Layout>
+
+<style>
+  .page-title {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-transform: uppercase;
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-style: normal;
+    font-size: var(--gallery-title-font-size);
+    margin-bottom: 10px;
+    color: var(--color-primary);
+  }
+
+  .cards-container {
+    display: flex;
+    flex-flow: row wrap;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  .card-link {
+    position: relative;
+    display: block;
+    margin-right: 4%;
+    width: calc(92% / 3);
+    text-decoration: none;
+    margin-bottom: max(4%, 20px);
+
+    &:nth-of-type(3n) {
+      margin-right: 0;
+    }
+
+    &:hover .card-title {
+      opacity: 1;
+    }
+  }
+
+  .card-container {
+    position: relative;
+    display: block;
+  }
+
+  .cover-image-wrap {
+    display: block;
+    overflow: hidden;
+
+    .cover-image {
+      position: relative;
+      float: none;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      transform: translateZ(0px);
+
+      &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        padding-bottom: 125%;
       }
-    </div>
-  </div></Layout
->
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        display: block;
+        height: 100%;
+        width: 100%;
+
+        background-color: var(--color-primary);
+        opacity: 0;
+      }
+    }
+
+    .image-container {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      display: block;
+      min-height: 100%;
+      width: 100%;
+      overflow: hidden;
+
+      img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  .card-title {
+    z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    text-transform: uppercase;
+    font-family: var(--font-title);
+    font-weight: 400;
+    font-size: var(--gallery-card-font-size);
+    color: var(--gallery-card-color);
+    background-color: var(--gallery-card-bg);
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .card-link {
+      width: 48%;
+
+      &:nth-of-type(3n) {
+        margin-right: 4%;
+      }
+
+      &:nth-of-type(2n) {
+        margin-right: 0;
+      }
+    }
+
+    .card-container {
+      overflow: hidden;
+    }
+
+    .card-title {
+      display: flex;
+      top: 80%;
+      height: 20%;
+      opacity: 1;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .card-link {
+      width: 100%;
+      margin-right: 0;
+
+      &:nth-of-type(3n) {
+        margin-right: 0;
+      }
+
+      &:nth-of-type(2n) {
+        margin-right: 0;
+      }
+    }
+  }
+</style>
