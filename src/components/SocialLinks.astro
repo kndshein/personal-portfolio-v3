@@ -2,9 +2,9 @@
 import { Icon } from 'astro-icon/components';
 import ThemeToggler from './ThemeToggler.tsx';
 const footerItems = [
-  { icon: 'fa6-brands:linkedin-in', link: 'https://www.linkedin.com/in/kndshein' },
-  { icon: 'fa6-brands:instagram', link: 'https://www.instagram.com/durian.puberty' },
-  { icon: 'fa-brands:medium-m', link: 'https://medium.com/@kndshein' },
+  { icon: 'fa6-brands--linkedin-in', href: 'https://www.linkedin.com/in/kndshein' },
+  { icon: 'fa6-brands--instagram', href: 'https://www.instagram.com/durian.puberty' },
+  { icon: 'fa-brands--medium-m', href: 'https://medium.com/@kndshein' },
 ];
 ---
 
@@ -14,11 +14,7 @@ const footerItems = [
       footerItems.map((item) => {
         return (
           <li>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.linkedin.com/in/kndshein/"
-            >
+            <a target="_blank" rel="noopener noreferrer" href={item.href}>
               <Icon name={item.icon} />
             </a>
           </li>

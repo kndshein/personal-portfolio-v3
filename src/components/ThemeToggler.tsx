@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/themetoggler.css';
 
+// There's some discrepancy w/ using svg files in Astro pages, yet the icons are directly embedded here. A few options:
+// 1. Use `vite-plugin-svgr`; did not work
+// 2. Embed svg into <img> tag like so: `<img src={icon.src} />`; this means `fill` nor `color` works for changing the color.
 const themes = [
   {
     name: 'light',
