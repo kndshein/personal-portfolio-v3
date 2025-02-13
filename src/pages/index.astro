@@ -4,8 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
 import SocialLinks from '../components/SocialLinks.astro';
 
-const num = [...new Array(75).fill(1)],
-  num2 = [...new Array(120).fill(1)];
+const largeArray = [...new Array(150).fill(1)];
 
 const cards = [
   {
@@ -13,28 +12,24 @@ const cards = [
     page: 'code',
     imgTitle: 'Code Card',
     hoverText: 'code',
-    hoverTextRepeatNum: num,
   },
   {
     name: 'I design.',
     page: 'design',
     imgTitle: 'TeacherSouls - Businesscard Mockup',
     hoverText: 'design',
-    hoverTextRepeatNum: num,
   },
   {
     name: 'I snap.',
     page: 'snap',
     imgTitle: 'MM 0909',
     hoverText: 'snap',
-    hoverTextRepeatNum: num,
   },
   {
     name: 'I am.',
     page: 'about',
     imgTitle: 'Profile Picture Alt',
     hoverText: 'am',
-    hoverTextRepeatNum: num2,
   },
 ];
 
@@ -60,7 +55,7 @@ const response = await contentfulClient.getAssets({
                 <a href={`/${card.page}`}>
                   <div class="link-title">{card.name}</div>
                   <div class="link-hover">
-                    {card.hoverTextRepeatNum.map(() => {
+                    {largeArray.map(() => {
                       return <span>{card.hoverText}</span>;
                     })}
                   </div>
@@ -190,6 +185,7 @@ const response = await contentfulClient.getAssets({
     height: 100%;
     word-wrap: break-word;
     line-height: clamp(2rem, 2vw, 3rem);
+    text-transform: uppercase;
 
     span {
       font-weight: 300;
