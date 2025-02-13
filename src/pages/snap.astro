@@ -1,0 +1,81 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import { contentfulClient } from '../lib/contentful';
+import { EntryFieldTypes } from 'contentful';
+
+interface Asset {
+  sys: {
+    id: string;
+    type: 'Asset';
+    createdAt: string;
+    updatedAt: string;
+  };
+  fields: {
+    title: string;
+    description?: string; // Optional
+    file: {
+      url: string;
+      details: {
+        size: number;
+        image?: {
+          width: number;
+          height: number;
+        };
+      };
+      fileName: string;
+      contentType: string;
+    };
+  };
+}
+
+interface SnapGalleries {
+  contentTypeId: 'snapGallery';
+  fields: {
+    galleryTitle: EntryFieldTypes.Text;
+    slug: EntryFieldTypes.Text;
+    order: EntryFieldTypes.Number;
+    coverImage: EntryFieldTypes.Text;
+    images: Asset[]; // Array of typed assets
+  };
+}
+
+const snapGalleries = await contentfulClient.getEntries<SnapGalleries>({
+  content_type: 'snapGallery',
+});
+---
+
+<Layout>
+  <div class="snap-page">
+    <div class="page-title">Snap</div>
+    <div class="cards-container">
+      {
+        snapGalleries.items.map((gallery) => {
+          if (!snapGalleries.includes || !snapGalleries.includes.Asset) throw new Error('asdf');
+          const coverImage = snapGalleries.includes.Asset.find(
+            (img) => img.fields.title === gallery.fields.coverImage
+          );
+          console.log('asdfasdfsadf', coverImage);
+          return (
+            <a href={`${gallery.fields.slug}`} class="card-link">
+              <div class="card-container">
+                <div class="cover-image-wrap">
+                  <div class="cover-image">
+                    <div class="image-container">
+                      <Image
+                        src={`https://${coverImage?.fields.file?.url}`}
+                        alt={coverImage?.fields.description || ''}
+                        inferSize
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="card-title">{gallery.fields.galleryTitle}</div>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+  </div></Layout
+>
