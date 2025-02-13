@@ -29,7 +29,8 @@ const snapGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries
                     <Image
                       src={`https://${coverImage.fields.file.url}`}
                       alt={coverImage.fields.description || ''}
-                      inferSize
+                      height={800}
+                      width={800}
                     />
                   </div>
                 </div>
