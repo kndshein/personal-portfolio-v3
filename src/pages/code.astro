@@ -1,0 +1,132 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import { contentfulClient } from '../lib/contentful';
+import { CodeGalleryType } from '../types/contentful';
+
+const codeGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries<CodeGalleryType>({
+  content_type: 'codeGallery',
+  order: ['fields.order'],
+});
+---
+
+<Layout>
+  <div class="code-page">
+    <div class="code-title">Code</div>
+    <div class="cards-container">
+      {
+        codeGalleries.items.map((item) => {
+          if (!item.fields.image || !item.fields.image.fields.file)
+            throw new Error(`Image not found for ${item.fields.title} gallery`);
+          return (
+            <button class="card-container">
+              <div class="card-title">{item.fields.title}</div>
+              <div class="card-image">
+                <Image
+                  class="image"
+                  src={`https://${item.fields.image.fields.file.url}`}
+                  alt={item.fields.image.fields.description || ''}
+                  inferSize
+                />
+              </div>
+            </button>
+          );
+        })
+      }
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .code-page {
+    .code-title {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      text-transform: uppercase;
+      font-family: var(--font-title);
+      font-weight: 600;
+      font-style: normal;
+      font-size: var(--gallery-title-font-size);
+      margin-bottom: 10px;
+      color: var(--color-primary);
+    }
+
+    .cards-container {
+      display: flex;
+      flex-flow: row wrap;
+      gap: max(2vw, 20px);
+
+      &:after {
+        content: '';
+        flex: 1 1 400px;
+      }
+
+      .card-container {
+        cursor: pointer;
+        position: relative;
+        flex: 1 1 400px;
+        height: 300px;
+        border: none;
+
+        .card-title {
+          z-index: 5;
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+          text-transform: uppercase;
+          font-family: var(--font-title);
+          font-weight: 400;
+          font-size: var(--gallery-card-font-size);
+          color: var(--gallery-card-color);
+          background-color: var(--gallery-card-bg);
+          opacity: 0;
+          transition: opacity 0.2s ease-out;
+        }
+
+        .card-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+
+          .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        &:hover {
+          .card-title {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  @import '../components/modal';
+
+  @media only screen and (max-width: 768px) {
+    .code-page {
+      .cards-container {
+        .card-container {
+          margin-bottom: 20px;
+
+          .card-title {
+            opacity: 1;
+            top: 80%;
+            height: 20%;
+          }
+        }
+      }
+    }
+  }
+</style>

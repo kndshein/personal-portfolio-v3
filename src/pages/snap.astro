@@ -63,6 +63,7 @@ const snapGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries
     flex-flow: row wrap;
     padding-bottom: 0;
     padding-top: 0;
+    margin-bottom: max(-8%, -40px);
   }
 
   .card-link {
@@ -162,6 +163,10 @@ const snapGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries
   }
 
   @media only screen and (max-width: 768px) {
+    .cards-container {
+      margin-bottom: 0;
+    }
+
     .card-link {
       width: 48%;
 
