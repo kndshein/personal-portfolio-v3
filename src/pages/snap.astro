@@ -2,45 +2,9 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
-import { EntryFieldTypes } from 'contentful';
+import { SnapGalleryType } from '../types/contentful';
 
-interface Asset {
-  sys: {
-    id: string;
-    type: 'Asset';
-    createdAt: string;
-    updatedAt: string;
-  };
-  fields: {
-    title: string;
-    description?: string; // Optional
-    file: {
-      url: string;
-      details: {
-        size: number;
-        image?: {
-          width: number;
-          height: number;
-        };
-      };
-      fileName: string;
-      contentType: string;
-    };
-  };
-}
-
-interface SnapGalleries {
-  contentTypeId: 'snapGallery';
-  fields: {
-    galleryTitle: EntryFieldTypes.Text;
-    slug: EntryFieldTypes.Text;
-    order: EntryFieldTypes.Number;
-    coverImage: EntryFieldTypes.Text;
-    images: Asset[]; // Array of typed assets
-  };
-}
-
-const snapGalleries = await contentfulClient.getEntries<SnapGalleries>({
+const snapGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries<SnapGalleryType>({
   content_type: 'snapGallery',
 });
 ---
@@ -51,11 +15,11 @@ const snapGalleries = await contentfulClient.getEntries<SnapGalleries>({
     <div class="cards-container">
       {
         snapGalleries.items.map((gallery) => {
-          if (!snapGalleries.includes || !snapGalleries.includes.Asset) throw new Error('asdf');
-          const coverImage = snapGalleries.includes.Asset.find(
-            (img) => img.fields.title === gallery.fields.coverImage
+          if (!gallery.fields.images) throw new Error('Images info not found in Snap Gallery');
+          const coverImage = gallery.fields.images.find(
+            (img) => img?.fields.title === gallery.fields.coverImage
           );
-          console.log('asdfasdfsadf', coverImage);
+          if (!coverImage || !coverImage.fields.file) throw new Error('Cover Image not found.');
           return (
             <a href={`${gallery.fields.slug}`} class="card-link">
               <div class="card-container">
@@ -63,8 +27,8 @@ const snapGalleries = await contentfulClient.getEntries<SnapGalleries>({
                   <div class="cover-image">
                     <div class="image-container">
                       <Image
-                        src={`https://${coverImage?.fields.file?.url}`}
-                        alt={coverImage?.fields.description || ''}
+                        src={`https://${coverImage.fields.file.url}`}
+                        alt={coverImage.fields.description || ''}
                         inferSize
                       />
                     </div>

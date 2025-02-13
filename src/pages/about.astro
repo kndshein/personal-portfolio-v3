@@ -4,29 +4,17 @@ import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
 import { MARKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import type { EntryFieldTypes } from 'contentful';
 import { Icon } from 'astro-icon/components';
+import { AboutMeTimelineType } from '../types/contentful';
 
-interface AboutMeTimelineEntries {
-  contentTypeId: 'aboutMeTimeline';
-  fields: {
-    title: EntryFieldTypes.Text;
-    order: EntryFieldTypes.Integer;
-    month: EntryFieldTypes.Text;
-    year: EntryFieldTypes.Text;
-    event: EntryFieldTypes.RichText;
-    duration: EntryFieldTypes.Text;
-    link: EntryFieldTypes.Text;
-    highlight: EntryFieldTypes.Boolean;
-  };
-}
+const aboutMeTimeline =
+  await contentfulClient.withoutUnresolvableLinks.getEntries<AboutMeTimelineType>({
+    content_type: 'aboutMeTimeline',
+    order: ['fields.order'],
+  });
 
-const aboutMeTimeline = await contentfulClient.getEntries<AboutMeTimelineEntries>({
-  content_type: 'aboutMeTimeline',
-  order: ['fields.order'],
-});
-
-const profilePic = await contentfulClient.getAsset('3DMqPiWeIMXXsxxIo9g8qJ');
+const profilePic =
+  await contentfulClient.withoutUnresolvableLinks.getAsset('3DMqPiWeIMXXsxxIo9g8qJ');
 if (!profilePic.fields.file) throw new Error('Profile picture was not fetched successfully.');
 
 const richTextOptions = {
@@ -42,7 +30,7 @@ const richTextOptions = {
     <section class="about-text">
       <Image
         src={`https://${profilePic.fields.file.url}`}
-        alt="A handsome fella with slicked back hair"
+        alt={profilePic.fields.description || 'A handsome fella with slicked back hair'}
         class="profile-pic"
         width={500}
         height={500}
