@@ -1,0 +1,17 @@
+<div id="dialog" style="display: none">Hello world!</div>
+
+<script>
+  import { isModalOpen } from '../lib/modalStore';
+
+  const modal_ele = document.getElementById('dialog');
+
+  if (!modal_ele) throw new Error("Modal element doesn't exist");
+  // Listen to changes in the store, and show/hide the dialog accordingly
+  isModalOpen.subscribe((open) => {
+    if (open) {
+      modal_ele.style.display = 'block';
+    } else {
+      modal_ele.style.display = 'none';
+    }
+  });
+</script>
