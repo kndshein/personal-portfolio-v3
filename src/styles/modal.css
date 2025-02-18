@@ -25,7 +25,6 @@
   color: white;
   z-index: 10;
   position: absolute;
-  margin: 15px;
   cursor: pointer;
   background: none;
   border: none;
@@ -34,6 +33,7 @@
 .close-icon {
   top: 0;
   right: 0;
+  margin: 15px;
 
   svg {
     width: 40px;
@@ -43,6 +43,7 @@
 
 .arrow-icon {
   top: 45%;
+  margin: 15px 10px;
 
   svg {
     width: 50px;

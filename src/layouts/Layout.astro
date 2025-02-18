@@ -34,3 +34,29 @@ const { title, disableHeadAndToe }: CustomProps = Astro.props.frontmatter || Ast
     {!disableHeadAndToe && <Footer />}
   </body>
 </html>
+
+<script>
+  import { modalData } from '../lib/modalStore';
+
+  const main = document.querySelector('main');
+  const nav = document.querySelector('nav');
+  const footer = document.querySelector('footer');
+
+  modalData.subscribe((data) => {
+    if (data) {
+      document.body.classList.add('modal-disable');
+      if (main && nav && footer) {
+        main.setAttribute('inert', '');
+        nav.setAttribute('inert', '');
+        footer.setAttribute('inert', '');
+      }
+    } else {
+      document.body.classList.remove('modal-disable');
+      if (main && nav && footer) {
+        main.removeAttribute('inert');
+        nav.removeAttribute('inert');
+        footer.removeAttribute('inert');
+      }
+    }
+  });
+</script>

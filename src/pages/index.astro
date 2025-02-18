@@ -47,8 +47,8 @@ const response = await contentfulClient.getAssets({
       <div class="links">
         {
           cards.map((card) => {
-            const curr_item = response.items.find((item) => item.fields.title == card.imgTitle);
-            if (!curr_item || !curr_item.fields.file)
+            const currItem = response.items.find((item) => item.fields.title == card.imgTitle);
+            if (!currItem || !currItem.fields.file)
               throw new Error(`Could not fetch ${card.imgTitle}.`);
             return (
               <div class={card.page}>
@@ -61,8 +61,8 @@ const response = await contentfulClient.getAssets({
                   </div>
                   <Image
                     class="image"
-                    alt={curr_item.fields.description || ''}
-                    src={`https://${curr_item.fields.file.url}`}
+                    alt={currItem.fields.description || ''}
+                    src={`https://${currItem.fields.file.url}`}
                     inferSize
                   />
                 </a>
