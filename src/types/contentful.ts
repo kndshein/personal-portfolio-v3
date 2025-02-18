@@ -51,7 +51,7 @@ export interface GalleryFields {
   images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
 }
 
-export type TypeGallerySkeleton = EntrySkeletonType<GalleryFields, 'designGallery'>;
+export type TypeGallerySkeleton = EntrySkeletonType<GalleryFields, 'designGallery' | 'snapGallery'>;
 export type TypeGallery<
   Modifiers extends ChainModifiers,
   Locales extends LocaleCode = LocaleCode,
