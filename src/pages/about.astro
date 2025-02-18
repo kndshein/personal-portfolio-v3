@@ -5,10 +5,10 @@ import { contentfulClient } from '../lib/contentful';
 import { MARKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { Icon } from 'astro-icon/components';
-import { AboutMeTimelineType } from '../types/contentful';
+import { TypeAboutMeTimelineSkeleton } from '../types/contentful';
 
 const aboutMeTimeline =
-  await contentfulClient.withoutUnresolvableLinks.getEntries<AboutMeTimelineType>({
+  await contentfulClient.withoutUnresolvableLinks.getEntries<TypeAboutMeTimelineSkeleton>({
     content_type: 'aboutMeTimeline',
     order: ['fields.order'],
   });
@@ -95,7 +95,7 @@ const richTextOptions = {
                       rel="noopener noreferrer"
                     >
                       Learn More
-                      <Icon name="mdi:external-link" />
+                      <Icon name="mdi--external-link" />
                     </a>
                   )}
                 </div>

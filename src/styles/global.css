@@ -35,6 +35,8 @@
   --logo--hover: var(--color-accent);
   --gallery-card-color: var(--color-secondary);
   --gallery-card-bg: var(--color-primary);
+  --modal-title-color: white;
+  --modal-wip-color: #b60c0c;
 }
 
 [data-theme='dark'] {
@@ -59,6 +61,8 @@
   --logo--hover: var(--color-accent-lite);
   --gallery-card-color: white;
   --gallery-card-bg: black;
+  --modal-title-color: white;
+  --modal-wip-color: #ffc400;
 }
 
 * {

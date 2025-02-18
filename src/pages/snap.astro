@@ -2,9 +2,9 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
-import { SnapGalleryType } from '../types/contentful';
+import { GalleryType } from '../types/contentful';
 
-const snapGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries<SnapGalleryType>({
+const snapGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries<GalleryType>({
   content_type: 'snapGallery',
   order: ['fields.order'],
 });

@@ -1,39 +1,12 @@
-import type { EntryFieldTypes, EntrySkeletonType } from 'contentful';
+import type {
+  ChainModifiers,
+  Entry,
+  EntryFieldTypes,
+  EntrySkeletonType,
+  LocaleCode,
+} from 'contentful';
 
-export interface SnapGalleryFields {
-  galleryTitle: EntryFieldTypes.Symbol;
-  slug: EntryFieldTypes.Symbol;
-  order?: EntryFieldTypes.Integer;
-  coverImage?: EntryFieldTypes.Symbol;
-  images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
-}
-
-export type SnapGalleryType = EntrySkeletonType<SnapGalleryFields>;
-
-export interface DesignGalleryFields {
-  galleryTitle: EntryFieldTypes.Symbol;
-  order?: EntryFieldTypes.Integer;
-  slug: EntryFieldTypes.Symbol;
-  coverImage?: EntryFieldTypes.Symbol;
-  images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
-}
-
-export type DesignGalleryType = EntrySkeletonType<DesignGalleryFields>;
-
-export interface CodeGalleryFields {
-  title?: EntryFieldTypes.Symbol;
-  order?: EntryFieldTypes.Integer;
-  image?: EntryFieldTypes.AssetLink;
-  preview?: EntryFieldTypes.AssetLink;
-  description?: EntryFieldTypes.Symbol;
-  features?: EntryFieldTypes.Object;
-  technologies?: EntryFieldTypes.Object;
-  link?: EntryFieldTypes.Object;
-}
-
-export type CodeGalleryType = EntrySkeletonType<CodeGalleryFields>;
-
-export interface AboutMeTimelineFields {
+export interface TypeAboutMeTimelineFields {
   title: EntryFieldTypes.Symbol;
   order: EntryFieldTypes.Integer;
   month: EntryFieldTypes.Symbol;
@@ -44,4 +17,42 @@ export interface AboutMeTimelineFields {
   highlight?: EntryFieldTypes.Boolean;
 }
 
-export type AboutMeTimelineType = EntrySkeletonType<AboutMeTimelineFields>;
+export type TypeAboutMeTimelineSkeleton = EntrySkeletonType<
+  TypeAboutMeTimelineFields,
+  'aboutMeTimeline'
+>;
+export type TypeAboutMeTimeline<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode,
+> = Entry<TypeAboutMeTimelineSkeleton, Modifiers, Locales>;
+
+export interface TypeCodeGalleryFields {
+  title?: EntryFieldTypes.Symbol;
+  order?: EntryFieldTypes.Integer;
+  image?: EntryFieldTypes.AssetLink;
+  preview?: EntryFieldTypes.AssetLink;
+  description?: EntryFieldTypes.Symbol;
+  features?: EntryFieldTypes.Object<{ Features?: string[] }>;
+  technologies?: EntryFieldTypes.Object<{ Technologies?: string[] }>;
+  link?: EntryFieldTypes.Object<{ GitHub?: string; Livelink?: string }>;
+}
+
+export type TypeCodeGallerySkeleton = EntrySkeletonType<TypeCodeGalleryFields, 'codeGallery'>;
+export type TypeCodeGallery<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode,
+> = Entry<TypeCodeGallerySkeleton, Modifiers, Locales>;
+
+export interface GalleryFields {
+  galleryTitle: EntryFieldTypes.Symbol;
+  order?: EntryFieldTypes.Integer;
+  slug: EntryFieldTypes.Symbol;
+  coverImage?: EntryFieldTypes.Symbol;
+  images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
+}
+
+export type TypeGallerySkeleton = EntrySkeletonType<GalleryFields, 'designGallery'>;
+export type TypeGallery<
+  Modifiers extends ChainModifiers,
+  Locales extends LocaleCode = LocaleCode,
+> = Entry<TypeGallerySkeleton, Modifiers, Locales>;

@@ -2,12 +2,14 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
-import { CodeGalleryType } from '../types/contentful';
+import { TypeCodeGallerySkeleton } from '../types/contentful';
+import ModalTrigger from '../components/ModalTrigger';
 
-const codeGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries<CodeGalleryType>({
-  content_type: 'codeGallery',
-  order: ['fields.order'],
-});
+const codeGalleries =
+  await contentfulClient.withoutUnresolvableLinks.getEntries<TypeCodeGallerySkeleton>({
+    content_type: 'codeGallery',
+    order: ['fields.order'],
+  });
 ---
 
 <Layout>
@@ -15,22 +17,23 @@ const codeGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries
     <div class="code-title">Code</div>
     <div class="cards-container">
       {
-        codeGalleries.items.map((item) => {
-          if (!item.fields.image || !item.fields.image.fields.file)
-            throw new Error(`Image not found for ${item.fields.title} gallery`);
+        codeGalleries.items.map((item, index) => {
           return (
-            <button class="card-container">
+            <ModalTrigger
+              passedModalData={{ index: index, type: 'code', data: codeGalleries }}
+              client:only="react"
+            >
               <div class="card-title">{item.fields.title}</div>
               <div class="card-image">
                 <Image
                   class="image"
-                  src={`https://${item.fields.image.fields.file.url}`}
-                  alt={item.fields.image.fields.description || ''}
+                  src={`https://${item.fields.image?.fields.file?.url}`}
+                  alt={item.fields.image?.fields.description || ''}
                   width={800}
                   inferSize
                 />
               </div>
-            </button>
+            </ModalTrigger>
           );
         })
       }
@@ -60,20 +63,6 @@ const codeGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries
     &:after {
       content: '';
       flex: 1 1 400px;
-    }
-  }
-
-  .card-container {
-    cursor: pointer;
-    position: relative;
-    flex: 1 1 400px;
-    height: 300px;
-    border: none;
-
-    &:hover {
-      .card-title {
-        opacity: 1;
-      }
     }
   }
 
@@ -111,17 +100,33 @@ const codeGalleries = await contentfulClient.withoutUnresolvableLinks.getEntries
     }
   }
 
-  @import '../components/modal';
-
   @media only screen and (max-width: 768px) {
-    .card-container {
-      margin-bottom: 20px;
-    }
-
     .card-title {
       opacity: 1;
       top: 80%;
       height: 20%;
+    }
+  }
+</style>
+
+<style is:global>
+  .cards-container button {
+    cursor: pointer;
+    position: relative;
+    flex: 1 1 400px;
+    height: 300px;
+    border: none;
+
+    &:hover {
+      .card-title {
+        opacity: 1;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .cards-container button {
+      margin-bottom: 20px;
     }
   }
 </style>
