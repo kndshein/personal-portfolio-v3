@@ -36,7 +36,11 @@
   --gallery-card-color: var(--color-secondary);
   --gallery-card-bg: var(--color-primary);
   --modal-title-color: white;
-  --modal-wip-color: #b60c0c;
+  --modal-wip-color: var(--color-highlight);
+  --modal-technologies-color: var(--color-accent-dark);
+  --modal-link-btn-color: var(--color-accent-dark);
+  --modal-link-btn-border: var(--color-accent);
+  --modal-link-btn-color-hover: var(--color-primary);
 }
 
 [data-theme='dark'] {
@@ -62,7 +66,11 @@
   --gallery-card-color: white;
   --gallery-card-bg: black;
   --modal-title-color: white;
-  --modal-wip-color: #ffc400;
+  --modal-wip-color: var(--color-highlight);
+  --modal-technologies-color: var(--color-accent);
+  --modal-link-btn-color: var(--color-accent-lite);
+  --modal-link-btn-border: var(--color-accent);
+  --modal-link-btn-color-hover: var(--color-primary);
 }
 
 * {

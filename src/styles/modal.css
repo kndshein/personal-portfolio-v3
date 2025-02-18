@@ -121,7 +121,7 @@
       font-size: 1.1rem;
       margin-right: 10px;
       border-radius: 5px;
-      color: var(--color-accent-dark);
+      color: var(--modal-technologies-color);
     }
   }
 
@@ -169,11 +169,12 @@
       padding: 10px;
       margin-right: 10px;
       font-size: 1.25rem;
-      color: var(--color-primary);
-      border: 2px solid var(--color-primary);
+      color: var(--modal-link-btn-color);
+      border: 2px solid var(--modal-link-btn-border);
 
       &:hover {
-        border: 2px solid var(--color-accent);
+        color: var(--modal-link-btn-color-hover);
+        border: 2px solid var(--modal-link-btn-color-hover);
       }
 
       svg {
