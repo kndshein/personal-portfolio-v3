@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import type { ImageType, ImagesType } from '../types/gallery';
 import ModalTrigger from './ModalTrigger';
 
@@ -9,11 +9,25 @@ interface Props {
 }
 
 const { image, allImages } = Astro.props;
+const formattedImages = await Promise.all(
+  allImages.map(async (image) => {
+    if (!image || !image.fields.file) throw new Error(`Image not found for ${image?.fields.title}`);
+    return {
+      image: await getImage({
+        src: `https://${image.fields.file.url}`,
+        width: 1500,
+        height: 1000,
+        format: 'webp',
+      }),
+      description: image.fields.description,
+    };
+  })
+);
 const currImageIndex = allImages.findIndex((currImage) => currImage?.sys.id == image.sys.id);
 ---
 
 <ModalTrigger
-  passedModalData={{ index: currImageIndex, type: 'image', data: allImages }}
+  passedModalData={{ index: currImageIndex, type: 'image', data: formattedImages }}
   client:only="react"
 >
   <Image

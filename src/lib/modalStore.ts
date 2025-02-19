@@ -1,14 +1,17 @@
 import { atom } from 'nanostores';
 import { TypeCodeGallerySkeleton } from '../types/contentful';
 import { EntryCollection } from 'contentful';
-import { ImagesType } from '../types/gallery';
+import { GetImageResult } from 'astro';
 
 export type ModalData =
   | null
   | {
       index: number;
       type: 'image';
-      data: ImagesType;
+      data: {
+        image: GetImageResult;
+        description: string | undefined;
+      }[];
     }
   | {
       index: number;

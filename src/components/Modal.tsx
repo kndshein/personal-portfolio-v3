@@ -5,16 +5,15 @@ import '../styles/modal.css';
 
 export default function Modal() {
   const $modalData = useStore(modalData);
-  const [currIndex, setCurrIndex] = useState<number>(0);
+  const [currIndex, setCurrIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    setCurrIndex($modalData?.index || 0);
+    setCurrIndex($modalData?.index ?? null);
   }, [$modalData?.index]);
 
-  if (!$modalData) return <></>;
+  if (!$modalData || currIndex == null) return <></>;
 
   const { type, data } = $modalData;
-
   const dataLength = type == 'code' ? data.items.length : data.length;
 
   const handleNavigate = (direction: 'left' | 'right') => {
@@ -22,10 +21,15 @@ export default function Modal() {
     if (direction == 'right' && dataLength - 1) setCurrIndex(currIndex + 1);
   };
 
+  const handleClose = () => {
+    setCurrIndex(null);
+    modalData.set(null);
+  };
+
   return (
     <div className="modal">
       <div className="modal-background" aria-hidden={true} />
-      <button className="icon close-icon" onClick={() => modalData.set(null)} tabIndex={0}>
+      <button className="icon close-icon" onClick={handleClose} tabIndex={0}>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path
             fill="currentColor"
@@ -57,10 +61,7 @@ export default function Modal() {
       )}
       {type == 'image' && (
         <div className="image-container">
-          <img
-            src={`https://${data[currIndex]?.fields.file?.url}`}
-            alt={data[currIndex]?.fields.description || ''}
-          />
+          <img src={data[currIndex].image.src} alt={data[currIndex].description || ''} />
         </div>
       )}
       {type == 'code' && (
