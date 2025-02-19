@@ -18,7 +18,7 @@ const { title, disableHeadAndToe }: CustomProps = Astro.props.frontmatter || Ast
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <title>{title ? `${title} • Kaung Nan Dar Shein` : 'Kaung Nan Dar Shein'}</title>
     <script is:inline>
       // Immediately apply the saved theme
       const savedTheme = localStorage.getItem('theme') || 'light';
