@@ -6,9 +6,10 @@ import ModalTrigger from './ModalTrigger';
 interface Props {
   image: ImageType;
   allImages: ImagesType;
+  width?: number;
 }
 
-const { image, allImages } = Astro.props;
+const { image, allImages, width } = Astro.props;
 const formattedImages = await Promise.all(
   allImages.map(async (image) => {
     if (!image || !image.fields.file) throw new Error(`Image not found for ${image?.fields.title}`);
@@ -33,7 +34,7 @@ const currImageIndex = allImages.findIndex((currImage) => currImage?.sys.id == i
   <Image
     src={`https://${image.fields.file?.url}`}
     alt={image.fields.description || ''}
-    width={800}
+    width={width ?? 800}
     inferSize
   />
 </ModalTrigger>

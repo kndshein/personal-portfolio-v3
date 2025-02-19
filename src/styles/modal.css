@@ -194,6 +194,7 @@
   cursor: pointer;
   background: none;
   border: none;
+  width: 100%;
 
   &:hover img {
     filter: grayscale(100%);
