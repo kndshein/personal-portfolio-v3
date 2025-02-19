@@ -15,19 +15,17 @@ export default function Modal() {
 
   const { type, data } = $modalData;
 
+  const dataLength = type == 'code' ? data.items.length : data.length;
+
   const handleNavigate = (direction: 'left' | 'right') => {
     if (direction == 'left' && currIndex > 0) setCurrIndex(currIndex - 1);
-    if (direction == 'right' && data.items.length - 1) setCurrIndex(currIndex + 1);
-  };
-
-  const handleClose = () => {
-    modalData.set(null);
+    if (direction == 'right' && dataLength - 1) setCurrIndex(currIndex + 1);
   };
 
   return (
     <div className="modal">
       <div className="modal-background" aria-hidden={true} />
-      <button className="icon close-icon" onClick={handleClose} tabIndex={0}>
+      <button className="icon close-icon" onClick={() => modalData.set(null)} tabIndex={0}>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path
             fill="currentColor"
@@ -46,7 +44,7 @@ export default function Modal() {
           </svg>
         </button>
       )}
-      {currIndex < data.items.length - 1 && (
+      {currIndex < dataLength - 1 && (
         <button
           className="icon arrow-icon right"
           onClick={() => handleNavigate('right')}

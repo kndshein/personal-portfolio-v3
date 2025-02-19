@@ -22,13 +22,14 @@ export const getStaticPaths = (async () => {
 
 const { gallery } = Astro.props;
 
+const galleryImages = gallery.images;
+if (!galleryImages) throw new Error(`Could not find images for ${gallery.galleryTitle}`);
+
 const formattedImages = [];
-if (gallery.images) {
-  let column = Math.round(gallery.images.length / 3);
-  formattedImages.push(gallery.images.slice(0, column));
-  formattedImages.push(gallery.images.slice(column, column * 2));
-  formattedImages.push(gallery.images.slice(column * 2));
-}
+let column = Math.round(galleryImages.length / 3);
+formattedImages.push(galleryImages.slice(0, column));
+formattedImages.push(galleryImages.slice(column, column * 2));
+formattedImages.push(galleryImages.slice(column * 2));
 ---
 
 <Layout>
@@ -42,7 +43,7 @@ if (gallery.images) {
               if (!image) throw new Error('Image not found');
               return (
                 <div class="image-container">
-                  <GalleryImage image={image} />
+                  <GalleryImage image={image} allImages={galleryImages} />
                 </div>
               );
             })}

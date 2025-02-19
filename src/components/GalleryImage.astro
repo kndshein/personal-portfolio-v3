@@ -1,9 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import { Asset } from 'contentful';
+import type { ImageType, ImagesType } from '../types/gallery';
 
 interface Props {
-  image: Asset<'WITHOUT_UNRESOLVABLE_LINKS', string>;
+  image: ImageType;
+  allImages: ImagesType;
 }
 
 const { image } = Astro.props;

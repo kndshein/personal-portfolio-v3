@@ -1,13 +1,14 @@
 import { atom } from 'nanostores';
-import { TypeGallerySkeleton, TypeCodeGallerySkeleton } from '../types/contentful';
+import { TypeCodeGallerySkeleton } from '../types/contentful';
 import { EntryCollection } from 'contentful';
+import { ImagesType } from '../types/gallery';
 
 export type ModalData =
   | null
   | {
       index: number;
       type: 'image';
-      data: EntryCollection<TypeGallerySkeleton, 'WITHOUT_UNRESOLVABLE_LINKS', string>;
+      data: ImagesType;
     }
   | {
       index: number;
