@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import { contentfulClient } from '../lib/contentful';
 import { TypeGallerySkeleton } from '../types/contentful';
+import PageTitle from '../components/PageTitle.astro';
 
 const designGalleries =
   await contentfulClient.withoutUnresolvableLinks.getEntries<TypeGallerySkeleton>({
@@ -12,7 +13,7 @@ const designGalleries =
 ---
 
 <Layout>
-  <div class="page-title">Design</div>
+  <PageTitle>Design</PageTitle>
   <div class="cards-container">
     {
       designGalleries.items.map((gallery) => {
@@ -46,19 +47,6 @@ const designGalleries =
 </Layout>
 
 <style>
-  .page-title {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    text-transform: uppercase;
-    font-family: var(--font-title);
-    font-weight: 600;
-    font-style: normal;
-    font-size: var(--gallery-title-font-size);
-    margin-bottom: 10px;
-    color: var(--color-primary);
-  }
-
   .card-container {
     position: relative;
     height: 20vh;
