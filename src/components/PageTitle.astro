@@ -6,7 +6,7 @@ interface Props {
 const { titlePrefix } = Astro.props;
 ---
 
-<h2><span>{titlePrefix}</span><slot /></h2>
+<h2>{titlePrefix && <span>{titlePrefix}</span>}<slot /></h2>
 
 <style>
   h2,
@@ -18,10 +18,8 @@ const { titlePrefix } = Astro.props;
   }
 
   h2 {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     text-transform: uppercase;
+    text-align: right;
     margin-bottom: 10px;
     color: var(--color-primary);
   }
