@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import { Asset } from 'contentful';
+
+interface Props {
+  image: Asset<'WITHOUT_UNRESOLVABLE_LINKS', string>;
+}
+
+const { image } = Astro.props;
+---
+
+<Image
+  class="image"
+  src={`https://${image.fields.file?.url}`}
+  alt={image.fields.description || ''}
+  width={800}
+  inferSize
+/>
+
+<style>
+  img {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+</style>

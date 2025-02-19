@@ -1,0 +1,79 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import { contentfulClient } from '../../lib/contentful';
+import { TypeGallerySkeleton } from '../../types/contentful';
+import PageTitle from '../../components/PageTitle.astro';
+import GalleryImage from '../../components/GalleryImage.astro';
+
+export const getStaticPaths = (async () => {
+  const designGalleries =
+    await contentfulClient.withoutUnresolvableLinks.getEntries<TypeGallerySkeleton>({
+      content_type: 'snapGallery',
+    });
+
+  return designGalleries.items.map((gallery) => {
+    return {
+      params: { designGallery: gallery.fields.slug },
+      props: { gallery: gallery.fields },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { gallery } = Astro.props;
+
+const formattedImages = [];
+if (gallery.images) {
+  let column = Math.round(gallery.images.length / 3);
+  formattedImages.push(gallery.images.slice(0, column));
+  formattedImages.push(gallery.images.slice(column, column * 2));
+  formattedImages.push(gallery.images.slice(column * 2));
+}
+---
+
+<Layout>
+  <PageTitle titlePrefix="SNAP:">{gallery.galleryTitle}</PageTitle>
+  <div class="snap-gallery">
+    {
+      formattedImages.map((column, columnIndex) => {
+        return (
+          <div class={`column-${columnIndex + 1}`}>
+            {column.map((image) => {
+              if (!image) throw new Error('Image not found');
+              return (
+                <div class="image-container">
+                  <GalleryImage image={image} />
+                </div>
+              );
+            })}
+          </div>
+        );
+      })
+    }
+  </div>
+</Layout>
+
+<style>
+  .snap-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+  }
+
+  .image-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .snap-gallery {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .image-container {
+      margin-bottom: 20px;
+    }
+  }
+</style>

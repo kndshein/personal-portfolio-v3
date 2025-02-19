@@ -1,16 +1,33 @@
-<h2><slot /></h2>
+---
+interface Props {
+  titlePrefix?: string;
+}
+
+const { titlePrefix } = Astro.props;
+---
+
+<h2><span>{titlePrefix}</span><slot /></h2>
 
 <style>
+  h2,
+  span {
+    font-family: var(--font-title);
+    font-size: var(--gallery-title-font-size);
+    font-weight: 600;
+    font-style: normal;
+  }
+
   h2 {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     text-transform: uppercase;
-    font-family: var(--font-title);
-    font-weight: 600;
-    font-style: normal;
-    font-size: var(--gallery-title-font-size);
     margin-bottom: 10px;
     color: var(--color-primary);
+  }
+
+  span {
+    margin-right: 10px;
+    color: var(--color-accent);
   }
 </style>
