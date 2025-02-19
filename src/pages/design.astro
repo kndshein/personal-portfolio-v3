@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import { contentfulClient } from '../lib/contentful';
+import { TypeGallerySkeleton } from '../types/contentful';
+
+const designGalleries =
+  await contentfulClient.withoutUnresolvableLinks.getEntries<TypeGallerySkeleton>({
+    content_type: 'designGallery',
+    order: ['fields.order'],
+  });
+---
+
+<Layout>
+  <div class="page-title">Design</div>
+  <div class="cards-container">
+    {
+      designGalleries.items.map((gallery) => {
+        if (!gallery.fields.images) throw new Error('Images info not found in Design Gallery');
+        const coverImage = gallery.fields.images.find(
+          (img) => img?.fields.title === gallery.fields.coverImage
+        );
+        if (!coverImage || !coverImage.fields.file) throw new Error('Cover Image not found.');
+        return (
+          <a href={`/design/${gallery.fields.slug}`} class="card-link">
+            <div class="card-container">
+              <div class="cover-image-wrap">
+                <div class="cover-image">
+                  <div class="image-container">
+                    <Image
+                      src={`https://${coverImage.fields.file.url}`}
+                      alt={coverImage.fields.description || ''}
+                      height={200}
+                      width={1500}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="card-title">{gallery.fields.galleryTitle}</div>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+</Layout>
+
+<style>
+  .page-title {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-transform: uppercase;
+    font-family: var(--font-title);
+    font-weight: 600;
+    font-style: normal;
+    font-size: var(--gallery-title-font-size);
+    margin-bottom: 10px;
+    color: var(--color-primary);
+  }
+
+  .card-container {
+    position: relative;
+    height: 20vh;
+    overflow: hidden;
+    margin-bottom: 20px;
+
+    &:hover {
+      .card-title {
+        opacity: 1;
+      }
+    }
+
+    .cover-image-wrap,
+    .cover-image,
+    .image-container {
+      width: 100%;
+      height: 100%;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .card-title {
+    z-index: 5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: var(--font-title);
+    font-weight: 400;
+    font-size: var(--gallery-card-font-size);
+    color: var(--gallery-card-color);
+    background-color: var(--gallery-card-bg);
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .card-container {
+      height: 55vh;
+    }
+
+    .card-title {
+      display: flex;
+      top: 80%;
+      height: 20%;
+      opacity: 1;
+    }
+  }
+</style>
