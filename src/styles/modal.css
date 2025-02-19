@@ -69,7 +69,7 @@
 
     img {
       object-fit: contain;
-      max-width: 1500px;
+      max-width: min(100%, 1500px);
       height: 100%;
     }
   }
@@ -194,6 +194,10 @@
   cursor: pointer;
   background: none;
   border: none;
+
+  &:hover img {
+    filter: grayscale(100%);
+  }
 }
 
 @media (hover: none), (hover: on-demand) {
