@@ -7,5 +7,9 @@ interface Props {
 }
 
 export default function ModalTrigger({ children, passedModalData }: Props) {
-  return <button onClick={() => modalData.set(passedModalData)}>{children}</button>;
+  return (
+    <button className="modal-trigger" onClick={() => modalData.set(passedModalData)}>
+      {children}
+    </button>
+  );
 }

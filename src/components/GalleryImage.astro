@@ -1,22 +1,28 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageType, ImagesType } from '../types/gallery';
+import ModalTrigger from './ModalTrigger';
 
 interface Props {
   image: ImageType;
   allImages: ImagesType;
 }
 
-const { image } = Astro.props;
+const { image, allImages } = Astro.props;
+const currImageIndex = allImages.findIndex((currImage) => currImage?.sys.id == image.sys.id);
 ---
 
-<Image
-  class="image"
-  src={`https://${image.fields.file?.url}`}
-  alt={image.fields.description || ''}
-  width={800}
-  inferSize
-/>
+<ModalTrigger
+  passedModalData={{ index: currImageIndex, type: 'image', data: allImages }}
+  client:only="react"
+>
+  <Image
+    src={`https://${image.fields.file?.url}`}
+    alt={image.fields.description || ''}
+    width={800}
+    inferSize
+  />
+</ModalTrigger>
 
 <style>
   img {

@@ -55,7 +55,15 @@ export default function Modal() {
           </svg>
         </button>
       )}
-      {type === 'code' && (
+      {type == 'image' && (
+        <div className="image-container">
+          <img
+            src={`https://${data[currIndex]?.fields.file?.url}`}
+            alt={data[currIndex]?.fields.description || ''}
+          />
+        </div>
+      )}
+      {type == 'code' && (
         <div className="card-container">
           <div className="title">{data.items[currIndex].fields.title}</div>
           {data.items[currIndex].fields.preview && (

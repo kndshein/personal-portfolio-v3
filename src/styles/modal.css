@@ -60,12 +60,15 @@
   }
 
   .image-container {
+    display: flex;
+    justify-content: center;
     z-index: 1;
     padding: 50px;
     width: 100%;
     height: 100%;
 
-    .image {
+    img {
+      object-fit: contain;
       width: 100%;
       height: 100%;
     }
@@ -184,6 +187,12 @@
       }
     }
   }
+}
+
+.modal-trigger {
+  cursor: pointer;
+  background: none;
+  border: none;
 }
 
 @media (hover: none), (hover: on-demand) {
