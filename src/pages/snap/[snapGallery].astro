@@ -7,14 +7,14 @@ import PageTitle from '../../components/PageTitle.astro';
 import GalleryImage from '../../components/GalleryImage.astro';
 
 export const getStaticPaths = (async () => {
-  const designGalleries =
+  const snapGalleries =
     await contentfulClient.withoutUnresolvableLinks.getEntries<TypeGallerySkeleton>({
       content_type: 'snapGallery',
     });
 
-  return designGalleries.items.map((gallery) => {
+  return snapGalleries.items.map((gallery) => {
     return {
-      params: { designGallery: gallery.fields.slug },
+      params: { snapGallery: gallery.fields.slug },
       props: { gallery: gallery.fields },
     };
   });
