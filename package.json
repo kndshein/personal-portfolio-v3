@@ -9,14 +9,17 @@
     "preview": "astro preview",
     "lint": "eslint . --max-warnings 0",
     "lint:changed": "eslint . --cache --cache-location .eslintcache --max-warnings 0",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:netlify": "netlify dev"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.8",
     "@astrojs/react": "^4.2.0",
     "@nanostores/react": "^0.8.4",
     "astro-icon": "^1.1.5",
+    "dotenv": "^16.4.7",
     "nanostores": "^0.11.3",
+    "nodemailer": "^6.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -27,8 +30,10 @@
     "@iconify-json/fa-brands": "^1.2.1",
     "@iconify-json/fa6-brands": "^1.2.5",
     "@iconify-json/mdi": "^1.2.3",
+    "@netlify/functions": "^3.0.0",
     "@types/eslint__js": "^8.42.3",
     "@types/mdx": "^2.0.13",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "astro": "^5.2.5",
@@ -44,6 +49,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.14.0",
     "husky": "^9.1.7",
+    "netlify-cli": "^18.1.0",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.7.3",

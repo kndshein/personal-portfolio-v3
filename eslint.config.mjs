@@ -13,7 +13,7 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['.astro/', 'dist/'],
+    ignores: ['.astro/', 'dist/', '.netlify/'],
   },
   js.configs.recommended,
   {
