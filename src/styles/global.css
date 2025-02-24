@@ -14,7 +14,7 @@
   --text-line-height: clamp(2rem, 3vw, 2.5rem);
   --gallery-title-font-size: clamp(3rem, 3vw, 5rem);
   --gallery-card-font-size: clamp(2rem, 3vw, 3.5rem);
-  --about-margin-top: clamp(50px, 5vw, 80px);
+  --about-margin-top: clamp(50px, 7vw, 90px);
 
   --color-primary: black;
   --color-secondary: white;
