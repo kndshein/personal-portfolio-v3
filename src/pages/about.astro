@@ -6,6 +6,7 @@ import { MARKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { Icon } from 'astro-icon/components';
 import { TypeAboutMeTimelineSkeleton } from '../types/contentful';
+import ContactForm from '../components/ContactForm.astro';
 
 const aboutMeTimeline =
   await contentfulClient.withoutUnresolvableLinks.getEntries<TypeAboutMeTimelineSkeleton>({
@@ -106,6 +107,7 @@ const richTextOptions = {
         })
       }
     </section>
+    <ContactForm />
   </section>
 </Layout>
 

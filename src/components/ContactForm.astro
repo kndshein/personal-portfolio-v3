@@ -1,0 +1,198 @@
+---
+/* This component renders a simple contact form */
+---
+
+<section class="form-container">
+  <form id="contact-form">
+    <div class="form-field">
+      <label for="form-name">Name</label>
+      <input id="form-name" name="Name" type="text" placeholder="Austin Powers" required />
+    </div>
+    <div class="form-field">
+      <label for="form-email">Email</label>
+      <input
+        id="form-email"
+        name="Email"
+        type="email"
+        placeholder="manofmystery@shagadelic.spy"
+        required
+      />
+    </div>
+    <div class="form-field">
+      <label for="form-message">Message</label>
+      <textarea
+        id="form-message"
+        name="Message"
+        placeholder="What we swingers were going against were uptight squares like you whose bag was money and world domination. We were innocent, man. If we had known the consequences of our sexual liberation, we would've done things much differently but the spirit would remain the same. It's freedom, baby."
+        required></textarea>
+    </div>
+    <button type="submit" value="Submit">Submit</button>
+  </form>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  if (form) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        message: formData.get('message'),
+      };
+
+      try {
+        const response = await fetch('/.netlify/functions/contact-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Message sent successfully!');
+        } else {
+          alert('Error sending message: ' + result.error);
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        alert('An error occurred. Please try again later.');
+      }
+    });
+  }
+</script>
+
+<style>
+  .form-container {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    label {
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+      font-family: var(--font-text);
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      color: var(--contact-form-label-color);
+    }
+
+    input,
+    #form-message {
+      height: 35px;
+      font-size: 1.2rem;
+      font-family: var(--font-text);
+      font-weight: 400;
+      font-style: normal;
+      padding: 5px 10px;
+      color: var(--contact-form-text-color);
+      border: var(--contact-form-border-color) 1px solid;
+      background-color: var(--color-bg);
+
+      &::placeholder {
+        font-style: italic;
+        color: var(--contact-form-placeholder-color);
+      }
+
+      &:focus {
+        outline: none;
+        border: var(--contact-form-border-color--focus) 2px solid;
+      }
+    }
+
+    #form-message {
+      resize: vertical;
+      height: 200px;
+      padding: 10px;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    width: 100%;
+    font-family: var(--font-text);
+    font-size: 1.2rem;
+    padding: 10px 10px;
+    margin-top: 10px;
+    border: none;
+    color: var(--contact-form-btn-color);
+    background-color: var(--contact-form-btn-bg);
+
+    &:hover {
+      color: var(--contact-form-btn-color--hover);
+      background-color: var(--contact-form-btn-bg--hover);
+    }
+
+    &:active {
+      outline: none;
+      color: var(--contact-form-btn-color--focus);
+      background-color: var(----contact-form-btn-bg--focus);
+    }
+  }
+
+  .form-thank {
+    &.clicked {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      padding: 30px;
+      border-radius: 5px;
+      transition: 0.5s ease;
+      background-color: var(----contact-form-thank-bg);
+    }
+  }
+
+  .form-thank-text {
+    display: none;
+
+    &.clicked {
+      display: block;
+      text-align: center;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      color: var(--contact-form-thank-color);
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    form {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      grid-template-rows: repeat(3, auto);
+      gap: 20px;
+      column-gap: 30px;
+
+      .form-field {
+        margin-bottom: 0px;
+
+        &:nth-of-type(2) {
+          grid-area: 1 / 2 / 2 / 4;
+        }
+
+        &:nth-of-type(3) {
+          grid-area: 2 / 1 / 3 / 4;
+        }
+      }
+    }
+
+    button {
+      grid-area: 3 / 1 / 4 / 4;
+    }
+  }
+</style>

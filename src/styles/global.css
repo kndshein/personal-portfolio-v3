@@ -41,6 +41,19 @@
   --modal-link-btn-color: var(--color-accent-dark);
   --modal-link-btn-border: var(--color-accent);
   --modal-link-btn-color-hover: var(--color-primary);
+  --contact-form-label-color: var(--color-primary);
+  --contact-form-text-color: var(--color-primary);
+  --contact-form-border-color: var(--color-accent);
+  --contact-form-border-color--focus: var(--color-primary);
+  --contact-form-placeholder-color: var(--color-accent);
+  --contact-form-btn-color: var(--color-accent-dark);
+  --contact-form-btn-bg: var(--color-accent-lite);
+  --contact-form-btn-color--hover: var(--color-secondary);
+  --contact-form-btn-bg--hover: var(--color-accent);
+  --contact-form-btn-color--focus: var(--color-accent-lite);
+  --contact-form-btn-bg--focus: var(--color-accent-dark);
+  --contact-form-thank-color: var(--color-accent-dark);
+  --contact-form-thank-bg: var(--color-accent-lite);
 }
 
 [data-theme='dark'] {
@@ -71,6 +84,19 @@
   --modal-link-btn-color: var(--color-accent-lite);
   --modal-link-btn-border: var(--color-accent);
   --modal-link-btn-color-hover: var(--color-primary);
+  --contact-form-label-color: var(--color-accent);
+  --contact-form-text-color: var(--color-accent);
+  --contact-form-border-color: var(--color-accent-dark);
+  --contact-form-border-color--focus: var(--color-accent-lite);
+  --contact-form-placeholder-color: var(--color-accent-dark);
+  --contact-form-btn-color: var(--color-accent-lite);
+  --contact-form-btn-bg: var(--color-accent-dark);
+  --contact-form-btn-color--hover: var(--color-secondary);
+  --contact-form-btn-bg--hover: var(--color-accent-lite);
+  --contact-form-btn-color--focus: var(--color-accent-lite);
+  --contact-form-btn-bg--focus: var(--color-accent-dark);
+  --contact-form-thank-color: var(--color-accent-lite);
+  --contact-form-thank-bg: var(--color-accent-dark);
 }
 
 * {
