@@ -63,6 +63,7 @@ const response = await contentfulClient.getAssets({
                     class="image"
                     alt={currItem.fields.description || ''}
                     src={`https://${currItem.fields.file.url}`}
+                    width="900"
                     inferSize
                   />
                 </a>
