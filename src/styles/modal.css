@@ -197,7 +197,9 @@
   width: 100%;
 
   &:hover img {
-    filter: grayscale(100%);
+    box-shadow:
+      0 0 0 2px var(--color-bg),
+      0 0 0 4px var(--color-primary);
   }
 }
 

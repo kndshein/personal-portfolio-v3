@@ -135,6 +135,10 @@ i,
   font-style: italic;
 }
 
+img {
+  color: transparent;
+}
+
 @media only screen and (min-width: 1024px) {
   body {
     max-width: var(--view-size);
