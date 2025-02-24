@@ -38,17 +38,14 @@
   --modal-title-color: white;
   --modal-wip-color: var(--color-highlight);
   --modal-technologies-color: var(--color-accent-dark);
-  --modal-link-btn-color: var(--color-accent-dark);
-  --modal-link-btn-border: var(--color-accent);
-  --modal-link-btn-color-hover: var(--color-primary);
+  --btn-color: var(--color-accent-dark);
+  --btn-border: var(--color-accent);
+  --btn-color--hover: var(--color-primary);
   --contact-form-label-color: var(--color-primary);
   --contact-form-text-color: var(--color-primary);
   --contact-form-border-color: var(--color-accent);
   --contact-form-border-color--focus: var(--color-primary);
   --contact-form-placeholder-color: var(--color-accent);
-  --contact-form-btn-color: var(--color-accent-dark);
-  --contact-form-btn-border-color: var(--color-accent);
-  --contact-form-btn-color--hover: var(--color-primary);
   --contact-form-post-submit-color: var(--color-accent-dark);
   --contact-form-post-submit-bg: var(--color-accent-lite);
 }
@@ -78,18 +75,17 @@
   --modal-title-color: white;
   --modal-wip-color: var(--color-highlight);
   --modal-technologies-color: var(--color-accent);
-  --modal-link-btn-color: var(--color-accent-lite);
-  --modal-link-btn-border: var(--color-accent);
-  --modal-link-btn-color-hover: var(--color-primary);
-  --contact-form-label-color: var(--color-accent);
-  --contact-form-text-color: var(--color-accent);
-  --contact-form-border-color: var(--color-accent-dark);
+  --btn-color: var(--color-accent-lite);
+  --btn-border: var(--color-accent);
+  --btn-color-hover: var(--color-primary);
+  --contact-form-label-color: var(--color-accent-lite);
+  --contact-form-text-color: var(--color-primary);
+  --contact-form-border-color: var(--color-accent);
   --contact-form-border-color--focus: var(--color-accent-lite);
-  --contact-form-placeholder-color: var(--color-accent-dark);
+  --contact-form-placeholder-color: var(--color-accent);
   --contact-form-btn-color: var(--color-accent-lite);
-  --contact-form-btn-border-color: var(--color-accent-dark);
-  --contact-form-btn-color--hover: var(--color-secondary);
-  --contact-form-btn-border-color--hover: var(--color-accent-lite);
+  --contact-form-btn-border-color: var(--color-accent);
+  --contact-form-btn-color--hover: var(--color-primary);
   --contact-form-post-submit-color: var(--color-accent-lite);
   --contact-form-post-submit-bg: var(--color-accent-dark);
 }

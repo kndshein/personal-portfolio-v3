@@ -58,13 +58,13 @@
   font-weight: 700;
   padding: 10px 10px;
   margin-top: 10px;
-  border: var(--contact-form-btn-border-color) 2px solid;
-  color: var(--contact-form-btn-color);
+  border: var(--btn-border) 2px solid;
+  color: var(--btn-color);
   background-color: transparent;
 
   &:hover {
-    color: var(--contact-form-btn-color--hover);
-    border: var(--contact-form-btn-color--hover) 2px solid;
+    color: var(--btn-color--hover);
+    border: var(--btn-color--hover) 2px solid;
   }
 }
 
