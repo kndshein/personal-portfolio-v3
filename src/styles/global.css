@@ -48,7 +48,6 @@
   --contact-form-border-color--focus: var(--color-primary);
   --contact-form-placeholder-color: var(--color-accent);
   --contact-form-post-submit-color: var(--color-accent-dark);
-  --contact-form-post-submit-bg: var(--color-accent-lite);
 }
 
 [data-theme='dark'] {
@@ -84,11 +83,7 @@
   --contact-form-border-color: var(--color-accent);
   --contact-form-border-color--focus: var(--color-accent-lite);
   --contact-form-placeholder-color: var(--color-accent);
-  --contact-form-btn-color: var(--color-accent-lite);
-  --contact-form-btn-border-color: var(--color-accent);
-  --contact-form-btn-color--hover: var(--color-primary);
   --contact-form-post-submit-color: var(--color-accent-lite);
-  --contact-form-post-submit-bg: var(--color-accent-dark);
 }
 
 * {
