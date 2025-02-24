@@ -2,7 +2,7 @@
   position: relative;
   max-width: none;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: var(--about-margin-top);
 }
 
 .form-field {

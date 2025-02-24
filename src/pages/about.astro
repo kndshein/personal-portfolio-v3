@@ -133,7 +133,6 @@ const richTextOptions = {
   .about-text {
     width: 100%;
     margin: 0 auto;
-    margin-bottom: clamp(50px, 5vw, 80px);
 
     h2 {
       text-align: left;
@@ -184,17 +183,23 @@ const richTextOptions = {
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin: 0 auto;
+    margin-top: var(--about-margin-top);
+    max-width: 1000px;
   }
 
   .entry {
     display: flex;
     flex-flow: row;
     align-items: center;
-    width: 80%;
     margin-bottom: 25px;
     font-weight: 300;
     color: var(--entry-text);
+    width: 100%;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     .date {
       display: flex;
@@ -276,7 +281,6 @@ const richTextOptions = {
   @media only screen and (max-width: 768px) {
     .entry {
       flex-flow: column;
-      width: 100%;
 
       .date {
         justify-content: flex-start;

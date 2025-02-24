@@ -14,6 +14,7 @@
   --text-line-height: clamp(2rem, 3vw, 2.5rem);
   --gallery-title-font-size: clamp(3rem, 3vw, 5rem);
   --gallery-card-font-size: clamp(2rem, 3vw, 3.5rem);
+  --about-margin-top: clamp(50px, 5vw, 80px);
 
   --color-primary: black;
   --color-secondary: white;
@@ -116,7 +117,7 @@ body {
   font-family: var(--font-text);
   font-weight: 400;
   font-style: normal;
-  padding: 75px 20px 150px 20px;
+  padding: 75px 20px 0;
   margin: auto;
   animation: fadeInAnimation ease-in-out 0.3s;
   animation-iteration-count: 1;
