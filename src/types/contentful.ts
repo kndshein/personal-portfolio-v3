@@ -54,7 +54,6 @@ export interface GalleryFields {
   order?: EntryFieldTypes.Integer;
   slug: EntryFieldTypes.Symbol;
   coverImage: EntryFieldTypes.AssetLink;
-  coverImage_legacy?: EntryFieldTypes.Symbol;
   images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
 }
 

@@ -18,10 +18,6 @@ const snapGalleries =
     {
       snapGalleries.items.map((gallery) => {
         if (!gallery.fields.images) throw new Error('Images info not found in Snap Gallery');
-        const coverImage = gallery.fields.images.find(
-          (img) => img?.fields.title === gallery.fields.coverImage
-        );
-        if (!coverImage || !coverImage.fields.file) throw new Error('Cover Image not found.');
         return (
           <a href={`/snap/${gallery.fields.slug}`} class="card-link">
             <div class="card-container">
@@ -29,8 +25,8 @@ const snapGalleries =
                 <div class="cover-image">
                   <div class="image-container">
                     <Image
-                      src={`https://${coverImage.fields.file.url}`}
-                      alt={coverImage.fields.description || ''}
+                      src={`https://${gallery.fields.coverImage?.fields.file?.url}`}
+                      alt={gallery.fields.coverImage?.fields.description || ''}
                       height={800}
                       width={800}
                     />
