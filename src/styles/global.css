@@ -74,7 +74,7 @@
   --gallery-card-bg: black;
   --modal-title-color: white;
   --modal-wip-color: var(--color-highlight);
-  --modal-technologies-color: var(--color-accent);
+  --modal-technologies-color: var(--color-accent-lite);
   --btn-color: var(--color-accent-lite);
   --btn-border: var(--color-accent);
   --btn-color-hover: var(--color-primary);

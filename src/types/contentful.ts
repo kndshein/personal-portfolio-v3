@@ -35,7 +35,8 @@ export type TechnologyKeys =
   | 'react'
   | 'sass'
   | 'tailwind'
-  | 'vite';
+  | 'vite'
+  | 'netlify_cms';
 
 export interface TypeCodeGalleryFields {
   title?: EntryFieldTypes.Symbol;
