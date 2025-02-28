@@ -67,11 +67,11 @@ export default function Modal() {
       {type == 'code' && (
         <div className="card-container">
           <div className="title">{data.items[currIndex].fields.title}</div>
-          {data.items[currIndex].fields.preview && (
+          {data.items[currIndex].fields.previewVideo && (
             <div className="preview-container">
               <video autoPlay loop muted playsInline key={currIndex}>
                 <source
-                  src={data.items[currIndex].fields.preview.fields.file?.url}
+                  src={data.items[currIndex].fields.previewVideo.fields.file?.url}
                   type="video/mp4"
                 />
               </video>
@@ -82,7 +82,7 @@ export default function Modal() {
               <div className="construction-text">Project currently under construction.</div>
             )}
             <div className="technologies">
-              {data.items[currIndex].fields.technologies?.Technologies?.map((technology, idx) => {
+              {data.items[currIndex].fields.technologies?.map((technology, idx) => {
                 return <span key={idx}>{technology}</span>;
               })}
             </div>

@@ -1,3 +1,5 @@
+//* Copied and modified from TS Content Types Generator, accessible through Contentful
+
 import type {
   ChainModifiers,
   Entry,
@@ -9,6 +11,7 @@ import type {
 export interface TypeAboutMeTimelineFields {
   title: EntryFieldTypes.Symbol;
   order: EntryFieldTypes.Integer;
+  date: EntryFieldTypes.Date;
   month: EntryFieldTypes.Symbol;
   year: EntryFieldTypes.Integer;
   event: EntryFieldTypes.RichText;
@@ -29,11 +32,14 @@ export type TypeAboutMeTimeline<
 export interface TypeCodeGalleryFields {
   title?: EntryFieldTypes.Symbol;
   order?: EntryFieldTypes.Integer;
-  image?: EntryFieldTypes.AssetLink;
-  preview?: EntryFieldTypes.AssetLink;
+  coverImage: EntryFieldTypes.AssetLink;
+  previewVideo: EntryFieldTypes.AssetLink;
   description?: EntryFieldTypes.Symbol;
-  features?: EntryFieldTypes.Object<{ Features?: string[] }>;
-  technologies?: EntryFieldTypes.Object<{ Technologies?: string[] }>;
+  technologies?: EntryFieldTypes.Array<
+    EntryFieldTypes.Symbol<
+      'astro' | 'framer' | 'gatsby' | 'jamstack' | 'react' | 'sass' | 'tailwind' | 'vite'
+    >
+  >;
   link?: EntryFieldTypes.Object<{ GitHub?: string; Livelink?: string }>;
 }
 
@@ -47,7 +53,8 @@ export interface GalleryFields {
   galleryTitle: EntryFieldTypes.Symbol;
   order?: EntryFieldTypes.Integer;
   slug: EntryFieldTypes.Symbol;
-  coverImage?: EntryFieldTypes.Symbol;
+  coverImage: EntryFieldTypes.AssetLink;
+  coverImage_legacy?: EntryFieldTypes.Symbol;
   images?: EntryFieldTypes.Array<EntryFieldTypes.AssetLink>;
 }
 
