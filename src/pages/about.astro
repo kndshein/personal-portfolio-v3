@@ -11,7 +11,6 @@ import ContactForm from '../components/ContactForm';
 const aboutMeTimeline =
   await contentfulClient.withoutUnresolvableLinks.getEntries<TypeAboutMeTimelineSkeleton>({
     content_type: 'aboutMeTimeline',
-    order: ['fields.order'],
   });
 
 const profilePic =
@@ -75,36 +74,43 @@ const richTextOptions = {
     </section>
     <section class="entries-container">
       {
-        aboutMeTimeline.items.map((entry) => {
-          return (
-            <div class={`entry ${entry.fields.highlight ? 'highlight' : ''}`}>
-              <div class="date">
-                <span class="month">{entry.fields.month}</span>
-                <span class="year bold">{entry.fields.year}</span>
-              </div>
-              <div class="event-container">
-                <div class="event">
-                  <div
-                    class={`${entry.fields.link ? 'margin' : ''}`}
-                    set:html={documentToHtmlString(entry.fields.event, richTextOptions)}
-                  />
-                  {entry.fields.link && (
-                    <a
-                      class="learn-more"
-                      href={entry.fields.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Learn More
-                      <Icon name="mdi--external-link" />
-                    </a>
-                  )}
+        aboutMeTimeline.items
+          .sort((a, b) => a.fields.date.localeCompare(b.fields.date))
+          .map((entry) => {
+            const entry_date = entry.fields.date;
+            const [year, month] = entry_date.split('-').map(Number); // Extract year & month
+            const month_name = new Date(year, month - 1).toLocaleString('en-US', {
+              month: 'short',
+            });
+            return (
+              <div class={`entry ${entry.fields.highlight ? 'highlight' : ''}`}>
+                <div class="date">
+                  <span class="month">{month_name}</span>
+                  <span class="year bold">{year}</span>
                 </div>
-                {entry.fields.duration && <div class="duration">{entry.fields.duration}</div>}
+                <div class="event-container">
+                  <div class="event">
+                    <div
+                      class={`${entry.fields.link ? 'margin' : ''}`}
+                      set:html={documentToHtmlString(entry.fields.event, richTextOptions)}
+                    />
+                    {entry.fields.link && (
+                      <a
+                        class="learn-more"
+                        href={entry.fields.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Learn More
+                        <Icon name="mdi--external-link" />
+                      </a>
+                    )}
+                  </div>
+                  {entry.fields.duration && <div class="duration">{entry.fields.duration}</div>}
+                </div>
               </div>
-            </div>
-          );
-        })
+            );
+          })
       }
     </section>
     <ContactForm client:idle />

@@ -11,9 +11,7 @@ import type {
 export interface TypeAboutMeTimelineFields {
   title: EntryFieldTypes.Symbol;
   order: EntryFieldTypes.Integer;
-  date: EntryFieldTypes.Date;
-  month: EntryFieldTypes.Symbol;
-  year: EntryFieldTypes.Integer;
+  date: EntryFieldTypes.Symbol;
   event: EntryFieldTypes.RichText;
   duration?: EntryFieldTypes.Symbol;
   link?: EntryFieldTypes.Symbol;
