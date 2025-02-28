@@ -1,7 +1,5 @@
 import { Handler } from '@netlify/functions';
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-dotenv.config();
 
 interface ContactFormData {
   name: string;

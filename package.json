@@ -4,13 +4,13 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "dev:netlify": "netlify dev",
     "check": "astro check",
     "build": "npm run check && astro build",
     "preview": "astro preview",
     "lint": "eslint . --max-warnings 0",
     "lint:changed": "eslint . --cache --cache-location .eslintcache --max-warnings 0",
-    "prepare": "husky",
-    "dev:netlify": "netlify dev"
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.8",
