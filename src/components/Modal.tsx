@@ -67,7 +67,7 @@ export default function Modal() {
       {type == 'code' && (
         <div className="card-container">
           <div className="title">{data.items[currIndex].fields.title}</div>
-          {data.items[currIndex].fields.previewVideo && (
+          {data.items[currIndex].fields.previewVideo ? (
             <div className="preview-container">
               <video autoPlay loop muted playsInline key={currIndex}>
                 <source
@@ -75,6 +75,13 @@ export default function Modal() {
                   type="video/mp4"
                 />
               </video>
+            </div>
+          ) : (
+            <div className="preview-container">
+              <img
+                src={data.items[currIndex].fields.coverImage?.fields.file?.url}
+                alt={data.items[currIndex].fields.coverImage?.fields.description || ''}
+              />
             </div>
           )}
           <div className="text-container">
