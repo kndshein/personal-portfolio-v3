@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react';
 import { modalData } from '../lib/modalStore';
 import { useEffect, useState } from 'react';
+import Technology from './Technology';
 import '../styles/modal.css';
 
 export default function Modal() {
@@ -90,7 +91,7 @@ export default function Modal() {
             )}
             <div className="technologies">
               {data.items[currIndex].fields.technologies?.map((technology, idx) => {
-                return <span key={idx}>{technology}</span>;
+                return <Technology key={idx} name={technology} />;
               })}
             </div>
             <div className="description">{data.items[currIndex].fields.description}</div>

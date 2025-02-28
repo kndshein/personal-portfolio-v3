@@ -122,19 +122,28 @@
     display: flex;
     flex-flow: row wrap;
     line-height: 1rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
     span {
-      font-size: 1.1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
       margin-right: 10px;
       border-radius: 5px;
       color: var(--modal-technologies-color);
     }
+
+    svg {
+      height: 20px;
+      margin-right: 3px;
+    }
   }
 
   .description {
-    font-size: 1.25rem;
+    font-size: var(--text-font-size);
     color: var(--color-primary);
+    margin-bottom: 30px;
   }
 
   .features {
@@ -167,7 +176,6 @@
 
   .links {
     display: flex;
-    margin-top: 20px;
 
     a {
       display: flex;

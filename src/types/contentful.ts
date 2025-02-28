@@ -27,17 +27,23 @@ export type TypeAboutMeTimeline<
   Locales extends LocaleCode = LocaleCode,
 > = Entry<TypeAboutMeTimelineSkeleton, Modifiers, Locales>;
 
+export type TechnologyKeys =
+  | 'astro'
+  | 'framer'
+  | 'gatsby'
+  | 'jamstack'
+  | 'react'
+  | 'sass'
+  | 'tailwind'
+  | 'vite';
+
 export interface TypeCodeGalleryFields {
   title?: EntryFieldTypes.Symbol;
   order?: EntryFieldTypes.Integer;
   coverImage: EntryFieldTypes.AssetLink;
   previewVideo: EntryFieldTypes.AssetLink;
   description?: EntryFieldTypes.Symbol;
-  technologies?: EntryFieldTypes.Array<
-    EntryFieldTypes.Symbol<
-      'astro' | 'framer' | 'gatsby' | 'jamstack' | 'react' | 'sass' | 'tailwind' | 'vite'
-    >
-  >;
+  technologies?: EntryFieldTypes.Array<EntryFieldTypes.Symbol<TechnologyKeys>>;
   link?: EntryFieldTypes.Object<{ GitHub?: string; Livelink?: string }>;
 }
 

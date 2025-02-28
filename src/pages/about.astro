@@ -77,15 +77,15 @@ const richTextOptions = {
         aboutMeTimeline.items
           .sort((a, b) => a.fields.date.localeCompare(b.fields.date))
           .map((entry) => {
-            const entry_date = entry.fields.date;
-            const [year, month] = entry_date.split('-').map(Number); // Extract year & month
-            const month_name = new Date(year, month - 1).toLocaleString('en-US', {
+            const entryDate = entry.fields.date;
+            const [year, month] = entryDate.split('-').map(Number); // Extract year & month
+            const monthName = new Date(year, month - 1).toLocaleString('en-US', {
               month: 'short',
             });
             return (
               <div class={`entry ${entry.fields.highlight ? 'highlight' : ''}`}>
                 <div class="date">
-                  <span class="month">{month_name}</span>
+                  <span class="month">{monthName}</span>
                   <span class="year bold">{year}</span>
                 </div>
                 <div class="event-container">
